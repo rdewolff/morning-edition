@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,800;9..144,900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #f5f0e8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(3rem, 8vw, 6rem); text-align: center; margin-bottom: 0.5rem; }
+  .sub { color: #888; font-size: 1.1rem; margin-bottom: 3rem; text-align: center; }
+  .editions { list-style: none; width: 100%; max-width: 500px; }
+  .editions li { margin-bottom: 1rem; }
+  .editions a { display: block; padding: 1.2rem 1.5rem; background: #1a1a1a; border-radius: 8px; color: #f5f0e8; text-decoration: none; font-size: 1.2rem; font-weight: 600; transition: background 0.2s; }
+  .editions a:hover { background: #2a2a2a; }
+  .editions .date { font-family: 'Fraunces', serif; font-weight: 800; }
+  .footer { margin-top: 4rem; color: #444; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+  <h1>Morning Edition</h1>
+  <p class="sub">Daily curated magazine from Hacker News</p>
+  <ul class="editions" id="editions"></ul>
+  <p class="footer">Built by Winston 🎩 for Romain</p>
+  <script>
+    // Auto-discover editions by trying recent dates
+    const ul = document.getElementById('editions');
+    const today = new Date();
+    const attempts = [];
+    for (let i = 0; i < 30; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const file = `${yyyy}-${mm}-${dd}.html`;
+      const label = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      attempts.push(fetch(file, { method: 'HEAD' }).then(r => {
+        if (r.ok) {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${file}"><span class="date">${label}</span></a>`;
+          li.dataset.ts = yyyy + mm + dd;
+          return li;
+        }
+        return null;
+      }).catch(() => null));
+    }
+    Promise.all(attempts).then(items => {
+      const valid = items.filter(Boolean).sort((a, b) => b.dataset.ts.localeCompare(a.dataset.ts));
+      if (valid.length === 0) {
+        ul.innerHTML = '<li style="color:#666;font-style:italic;">No editions yet — check back tomorrow morning.</li>';
+      } else {
+        valid.forEach(li => ul.appendChild(li));
+      }
+    });
+  </script>
+</body>
+</html>
