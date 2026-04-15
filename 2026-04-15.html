@@ -6,232 +6,289 @@
 <title>Morning Edition — April 15, 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --f-display: 'Fraunces', serif;
-    --f-body: 'Inter', sans-serif;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 18px; scroll-behavior: smooth; }
-  body { font-family: var(--f-body); line-height: 1.6; color: #1a1a1a; }
-  a { color: inherit; }
-  .spread { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 6vh 8vw; position: relative; overflow: hidden; }
-  .numeral { font-family: var(--f-display); font-weight: 900; font-style: italic; opacity: 0.07; position: absolute; font-size: clamp(15rem, 30vw, 40rem); line-height: 1; z-index: 0; }
-  .content { position: relative; z-index: 1; max-width: 900px; }
-  .label { font-family: var(--f-body); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
-  h2 { font-family: var(--f-display); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; }
-  .summary { font-size: 1.25rem; line-height: 1.7; font-weight: 400; }
-  .meta { margin-top: 2rem; font-size: 0.9rem; font-weight: 500; opacity: 0.7; }
-  .meta a { text-decoration: underline; text-underline-offset: 3px; }
-  .flag { display: inline-block; background: #ff3b3b; color: #fff; font-family: var(--f-body); font-weight: 800; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 3px; margin-bottom: 1rem; transform: rotate(-2deg); }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.spread {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 8vw;
+  position: relative;
+}
+.spread h1 {
+  font-family: 'Fraunces', serif;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.spread .meta {
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+  opacity: 0.7;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.spread .meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.badge {
+  display: inline-block;
+  background: #e53e3e;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.9rem;
+  border-radius: 4px;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.02em;
+}
+.spread .blurb {
+  max-width: 680px;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-top: 2rem;
+}
+.issue-num { font-family: 'Fraunces', serif; font-size: 0.85rem; opacity: 0.4; position: absolute; top: 3vh; right: 4vw; }
+.scroll-hint {
+  position: absolute; bottom: 3vh; left: 50%; transform: translateX(-50%);
+  font-size: 0.8rem; opacity: 0.35; letter-spacing: 0.15em; text-transform: uppercase;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 0.35; } 50% { opacity: 0.15; } }
 
-  /* ---- COVER ---- */
-  .cover { background: #0a0a0a; color: #f5f0e8; text-align: center; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8vh 6vw; }
-  .cover .edition-label { font-family: var(--f-body); font-weight: 300; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: #888; margin-bottom: 3rem; }
-  .cover h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(3.5rem, 10vw, 8rem); line-height: 1; margin-bottom: 1.5rem; }
-  .cover .date { font-family: var(--f-display); font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2.2rem); color: #aaa; margin-bottom: 3rem; }
-  .cover .tagline { font-family: var(--f-body); font-weight: 400; font-size: 1.1rem; color: #666; max-width: 500px; line-height: 1.7; }
+/* ---- COVER ---- */
+.cover {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+  color: #f5f0eb;
+  text-align: center;
+  align-items: center;
+}
+.cover h1 { font-size: clamp(3rem, 8vw, 7rem); }
+.cover .date { font-size: 1.3rem; font-weight: 300; margin-top: 1rem; opacity: 0.6; letter-spacing: 0.2em; text-transform: uppercase; }
+.cover .tagline { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.1rem; margin-top: 2rem; opacity: 0.5; }
 
-  /* ---- 01: HERO (cream) ---- */
-  .s01 { background: #f5f0e8; color: #1a1a1a; }
-  .s01 .numeral { top: -5%; right: -5%; color: #c8b89a; }
-  .s01 h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+/* 1 — hero/cream */
+.s1 { background: #f5f0eb; color: #1a1a1a; }
+.s1 h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); }
 
-  /* ---- 02: DARK/MIDNIGHT ---- */
-  .s02 { background: #0f1923; color: #e8edf2; }
-  .s02 .numeral { bottom: -10%; left: -3%; color: #1e3a5f; }
-  .s02 h2 { font-size: clamp(2.2rem, 5vw, 4rem); color: #6ec1ff; }
-  .s02 .label { color: #6ec1ff; }
+/* 2 — dark/midnight */
+.s2 { background: #0d1117; color: #e6edf3; }
+.s2 h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); color: #58a6ff; }
 
-  /* ---- 03: ROSE ALERT STAMP ---- */
-  .s03 { background: #fff0f0; color: #2a0a0a; }
-  .s03 .numeral { top: -8%; left: -2%; color: #ffb8b8; }
-  .s03 h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); color: #cc2222; }
-  .s03 .label { color: #cc2222; }
+/* 3 — rose-alert-stamp */
+.s3 { background: #fff1f2; color: #4a1a1a; }
+.s3 h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+.s3::after {
+  content: 'PRIVACY';
+  position: absolute; top: 50%; right: 6vw; transform: rotate(-12deg) translateY(-50%);
+  font-family: 'Fraunces', serif; font-size: clamp(4rem, 10vw, 10rem);
+  color: rgba(225, 29, 72, 0.07); font-weight: 900; pointer-events: none;
+}
 
-  /* ---- 04: TERMINAL ---- */
-  .s04 { background: #0d1117; color: #00ff88; font-family: 'Courier New', monospace; }
-  .s04 .numeral { top: -5%; right: -3%; color: #0a3020; font-family: 'Courier New', monospace; }
-  .s04 h2 { font-family: 'Courier New', monospace; font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 700; }
-  .s04 .summary { color: #b0ffcc; font-family: var(--f-body); }
-  .s04 .label { color: #00ff88; font-family: var(--f-body); }
-  .s04 .meta { color: #4a7a5a; }
+/* 4 — terminal/green-on-black */
+.s4 { background: #0a0a0a; color: #33ff33; font-family: 'Courier New', monospace; }
+.s4 h1 { font-family: 'Courier New', monospace; font-size: clamp(2rem, 4.5vw, 4rem); }
+.s4 .blurb { font-family: 'Courier New', monospace; }
+.s4 .meta { font-family: 'Courier New', monospace; }
+.s4::before { content: '$ cat /dev/security'; position: absolute; top: 3vh; left: 4vw; font-size: 0.8rem; opacity: 0.3; }
 
-  /* ---- 05: ACADEMIC DROP-CAP ---- */
-  .s05 { background: #faf8f4; color: #222; }
-  .s05 .numeral { bottom: -8%; right: -4%; color: #e8e2d8; }
-  .s05 h2 { font-size: clamp(2.2rem, 5vw, 4rem); font-style: italic; }
-  .s05 .summary::first-letter { font-family: var(--f-display); font-size: 4rem; float: left; line-height: 0.8; margin-right: 0.15em; margin-top: 0.1em; font-weight: 900; color: #8b6914; }
+/* 5 — academic-drop-cap */
+.s5 { background: #fefcf8; color: #2d2d2d; }
+.s5 h1 { font-size: clamp(2.2rem, 5vw, 4.5rem); }
+.s5 .blurb::first-letter {
+  font-family: 'Fraunces', serif; font-size: 4rem; float: left;
+  line-height: 0.8; margin-right: 0.15em; margin-top: 0.05em; color: #4338ca;
+}
 
-  /* ---- 06: INDIGO GRADIENT ---- */
-  .s06 { background: linear-gradient(135deg, #1a0533 0%, #2d1b69 50%, #4a2c8a 100%); color: #e8dff5; }
-  .s06 .numeral { top: -5%; left: -3%; color: #3a1a6a; }
-  .s06 h2 { font-size: clamp(2.2rem, 5vw, 4rem); color: #c4a0ff; }
-  .s06 .label { color: #c4a0ff; }
+/* 6 — indigo-gradient */
+.s6 { background: linear-gradient(135deg, #312e81, #4338ca, #6366f1); color: #e0e7ff; }
+.s6 h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); color: #fff; }
 
-  /* ---- 07: BOLD BLACK/WHITE ---- */
-  .s07 { background: #fff; color: #000; }
-  .s07 .numeral { bottom: -10%; left: -5%; color: #f0f0f0; opacity: 0.15; }
-  .s07 h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
-  .s07 .content { border-left: 8px solid #000; padding-left: 2rem; }
+/* 7 — bold-black-white */
+.s7 { background: #fff; color: #000; }
+.s7 h1 { font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; letter-spacing: -0.03em; }
 
-  /* ---- 08: WARM AMBER ---- */
-  .s08 { background: #2a1f0e; color: #f5e6c8; }
-  .s08 .numeral { top: -5%; right: -5%; color: #3d2a10; }
-  .s08 h2 { font-size: clamp(2.2rem, 5vw, 4rem); color: #ffc85c; }
-  .s08 .label { color: #ffc85c; }
+/* 8 — warm-amber */
+.s8 { background: #451a03; color: #fef3c7; }
+.s8 h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); color: #fbbf24; }
 
-  /* ---- 09: TEAL SCIENCE ---- */
-  .s09 { background: #0a2a2a; color: #b8f0e8; }
-  .s09 .numeral { bottom: -8%; right: -3%; color: #0d3a3a; }
-  .s09 h2 { font-size: clamp(2.2rem, 5vw, 4rem); color: #4df0d0; }
-  .s09 .label { color: #4df0d0; }
+/* 9 — teal-science */
+.s9 { background: #042f2e; color: #ccfbf1; }
+.s9 h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); color: #5eead4; }
 
-  /* ---- 10: BIG STAT FINISH ---- */
-  .s10 { background: #111; color: #fff; text-align: center; }
-  .s10 .numeral { top: 50%; left: 50%; transform: translate(-50%, -50%); color: #222; }
-  .s10 h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
-  .s10 .big-stat { font-family: var(--f-display); font-weight: 900; font-size: clamp(5rem, 15vw, 12rem); line-height: 1; color: #ff4444; margin: 2rem 0; }
-  .s10 .content { max-width: 800px; margin: 0 auto; }
+/* 10 — big-stat-finish */
+.s10 { background: #18181b; color: #fafafa; text-align: center; align-items: center; }
+.s10 .big-number { font-family: 'Fraunces', serif; font-size: clamp(5rem, 14vw, 12rem); font-weight: 900; line-height: 1; color: #f59e0b; }
+.s10 h1 { font-size: clamp(1.8rem, 4vw, 3.5rem); margin-top: 1rem; }
 
-  /* ---- FOOTER ---- */
-  .footer { background: #0a0a0a; color: #555; text-align: center; padding: 4rem 2rem; font-size: 0.85rem; }
-  .footer a { color: #888; }
-
-  @media (max-width: 600px) {
-    .spread { padding: 5vh 5vw; }
-    .summary { font-size: 1.1rem; }
-  }
+@media (max-width: 640px) {
+  .spread { padding: 4vh 6vw; }
+}
 </style>
 </head>
 <body>
 
 <!-- COVER -->
-<section class="cover">
-  <div class="edition-label">A Daily Digest for Builders</div>
-  <h1>Morning<br>Edition</h1>
-  <div class="date">Tuesday, April 15, 2026</div>
-  <div class="tagline">10 stories from the Hacker News front page — curated for founders building with AI, obsessed with tools, and allergic to noise.</div>
+<section class="spread cover">
+  <h1>Morning Edition</h1>
+  <div class="date">Wednesday, April 15, 2026</div>
+  <div class="tagline">10 stories worth your morning coffee</div>
+  <div class="scroll-hint">↓ scroll</div>
 </section>
 
-<!-- 01: HERO -->
-<section class="spread s01">
-  <div class="numeral">01</div>
-  <div class="content">
-    <div class="label">Creative Software</div>
-    <h2>DaVinci Resolve Launches a Full Photo Editor — and It's Free</h2>
-    <p class="summary">Blackmagic Design just dropped DaVinci Resolve Photo — a complete, professional photo editing suite built into Resolve. RAW processing, advanced color science, layer-based editing, and the same color tools that Hollywood colorists use, now applied to stills. And like the rest of Resolve: the core version is <strong>completely free</strong>. This is Blackmagic doing to Lightroom what they did to Premiere. The creative software world just shifted again.</p>
-    <div class="meta">1,056 points · 264 comments · <a href="https://www.blackmagicdesign.com/products/davinciresolve/photo" target="_blank">blackmagicdesign.com →</a></div>
+<!-- 1 — hero/cream — Claude Code Routines -->
+<section class="spread s1">
+  <span class="issue-num">01 / 10</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h1>Claude Code Routines: Automate Your Dev Workflow With Custom Commands</h1>
+  <div class="blurb">
+    Anthropic just dropped a powerful new feature for Claude Code: Routines — reusable, composable command sequences that let you chain AI actions into one-click workflows. Think CI pipelines but for your coding assistant. Define review checks, refactoring patterns, or deployment sequences and run them with a single command. This is exactly the kind of tooling that could supercharge how Whisperit's dev team works with AI.
+  </div>
+  <div class="meta">
+    <span>▲ 519 points</span>
+    <span>💬 303 comments</span>
+    <a href="https://code.claude.com/docs/en/routines" target="_blank">code.claude.com →</a>
   </div>
 </section>
 
-<!-- 02: DARK/MIDNIGHT -->
-<section class="spread s02">
-  <div class="numeral">02</div>
-  <div class="content">
-    <span class="flag">🔥 Directly applies to you</span>
-    <div class="label">AI Tools</div>
-    <h2>Claude Code Now Has "Routines" — Reusable Multi-Step Workflows</h2>
-    <p class="summary">Anthropic shipped Routines for Claude Code: save your best multi-step prompts as named, reusable commands. Think of it as macros for your coding agent — define a sequence once, invoke it by name. For anyone running Claude Code daily (that's you, Romain), this turns repetitive workflows into one-liners. Refactor → test → commit? One routine. Review PR → leave comments → suggest fixes? One routine. This is the "shell scripts for AI agents" moment.</p>
-    <div class="meta">425 points · 270 comments · <a href="https://code.claude.com/docs/en/routines" target="_blank">code.claude.com →</a></div>
+<!-- 2 — dark/midnight — DaVinci Resolve Photo -->
+<section class="spread s2">
+  <span class="issue-num" style="color:#58a6ff;">02 / 10</span>
+  <h1>DaVinci Resolve Expands Into Photo Editing — And It's Free</h1>
+  <div class="blurb">
+    Blackmagic Design is making waves again. DaVinci Resolve — already the gold standard for free video editing — now has a full photo editing module. Color grading, RAW processing, AI-powered tools, all baked into the same app. Over 1,000 points on HN, which tells you the creative community is paying attention. This is a serious Lightroom competitor with zero subscription fees.
+  </div>
+  <div class="meta">
+    <span>▲ 1,079 points</span>
+    <span>💬 271 comments</span>
+    <a href="https://www.blackmagicdesign.com/products/davinciresolve/photo" target="_blank" style="color:#58a6ff;">blackmagicdesign.com →</a>
   </div>
 </section>
 
-<!-- 03: ROSE ALERT -->
-<section class="spread s03">
-  <div class="numeral">03</div>
-  <div class="content">
-    <div class="label">Privacy Alert</div>
-    <h2>Flock's Neighborhood Surveillance Network Gets a Privacy Revolt</h2>
-    <p class="summary">Flock Safety sells license-plate-reading cameras to HOAs and neighborhoods across the US, creating a mass domestic surveillance network with minimal oversight. One developer wrote to Flock's privacy contact to formally opt out — and documented the Kafkaesque process. Separately, the "Stop Flock" movement is gaining steam. Two stories dominated HN today on this topic, with nearly 700 combined points. The privacy implications are staggering: private companies building government-grade surveillance infrastructure, sold as "neighborhood safety."</p>
-    <div class="meta">497 + 167 points · 205 + 18 comments · <a href="https://honeypot.net/2026/04/14/i-wrote-to-flocks-privacy.html" target="_blank">honeypot.net →</a> · <a href="https://stopflock.com" target="_blank">stopflock.com →</a></div>
+<!-- 3 — rose-alert-stamp — Flock Domestic Spying -->
+<section class="spread s3">
+  <span class="issue-num">03 / 10</span>
+  <h1>Flock Safety's Mass Surveillance Network Faces Growing Backlash</h1>
+  <div class="blurb">
+    Two stories blowing up simultaneously: Flock Safety, which sells license plate reader networks to neighborhoods and police departments, is under fire. One HN post (554 pts) details how a user wrote to Flock's privacy contact to opt out of their "domestic spying program." Another (503 pts) has launched StopFlock.com, a campaign to end mass surveillance by private companies. The privacy debate is heating up fast.
+  </div>
+  <div class="meta">
+    <span>▲ 554 + 503 points</span>
+    <span>💬 228 + 121 comments</span>
+    <a href="https://honeypot.net/2026/04/14/i-wrote-to-flocks-privacy.html" target="_blank">honeypot.net →</a>
+    <a href="https://stopflock.com" target="_blank">stopflock.com →</a>
   </div>
 </section>
 
-<!-- 04: TERMINAL -->
-<section class="spread s04">
-  <div class="numeral">04</div>
-  <div class="content">
-    <div class="label">Dev Tools</div>
-    <h2>$ jj — The CLI That Might Kill Git</h2>
-    <p class="summary">Jujutsu (jj) is a version control system built by a Google engineer that's compatible with Git repos but fundamentally rethinks the workflow. Every working-copy change is automatically a commit. No staging area. No stash. Branches are just pointers you move around. The new tutorial by Steve Klabnik is the tipping point — it finally makes jj accessible to normal developers. 492 points and 437 comments: people are <em>excited</em>. If you haven't tried it yet, this is the tutorial to start with.</p>
-    <div class="meta">492 points · 437 comments · <a href="https://steveklabnik.github.io/jujutsu-tutorial/introduction/what-is-jj-and-why-should-i-care.html" target="_blank" style="color:#00ff88">steveklabnik.github.io →</a></div>
+<!-- 4 — terminal/green-on-black — Fiverr Files Public -->
+<section class="spread s4">
+  <span class="issue-num" style="color:#33ff33;">04 / 10</span>
+  <h1>$ Fiverr Left Customer Files Public &amp; Google-Indexed</h1>
+  <div class="blurb">
+    > A security researcher found that Fiverr uses unsigned Cloudinary URLs for client-worker file exchanges. Tax forms, contracts, PII — all publicly accessible and indexed by Google. 40 days after responsible disclosure to security@fiverr.com... radio silence. The researcher went public. Hundreds of sensitive documents are searchable right now. A masterclass in how NOT to handle cloud storage.
+  </div>
+  <div class="meta">
+    <span>▲ 468 points</span>
+    <span>💬 96 comments</span>
+    <a href="https://news.ycombinator.com/item?id=47769796" target="_blank" style="color:#33ff33;">Hacker News →</a>
   </div>
 </section>
 
-<!-- 05: ACADEMIC DROP-CAP -->
-<section class="spread s05">
-  <div class="numeral">05</div>
-  <div class="content">
-    <div class="label">Web / Search</div>
-    <h2>Google Declares War on Back-Button Hijacking</h2>
-    <p class="summary">Google just announced a new spam policy specifically targeting sites that hijack the browser back button — those infuriating pages that trap you in redirect loops when you try to leave. Starting now, sites caught doing this will be penalized in search rankings. This is Google using its search monopoly for actual good: cleaning up one of the web's most hostile UX patterns. 835 points and 475 comments — the internet is cheering.</p>
-    <div class="meta">835 points · 475 comments · <a href="https://developers.google.com/search/blog/2026/04/back-button-hijacking" target="_blank">developers.google.com →</a></div>
+<!-- 5 — academic-drop-cap — Introspective Diffusion LLMs -->
+<section class="spread s5">
+  <span class="issue-num">05 / 10</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h1>Introspective Diffusion: A New Architecture for Language Models</h1>
+  <div class="blurb">
+    Researchers have introduced Introspective Diffusion Language Models — a hybrid architecture that combines the parallel generation capabilities of diffusion models with the reasoning depth of autoregressive transformers. Instead of generating tokens one-by-one, these models "diffuse" entire sequences and then introspectively refine them. Early results show significant speed improvements while maintaining quality. For anyone building AI-powered text tools (hint hint, Whisperit), this is worth watching closely.
+  </div>
+  <div class="meta">
+    <span>▲ 250 points</span>
+    <span>💬 45 comments</span>
+    <a href="https://introspective-diffusion.github.io/" target="_blank">introspective-diffusion.github.io →</a>
   </div>
 </section>
 
-<!-- 06: INDIGO GRADIENT -->
-<section class="spread s06">
-  <div class="numeral">06</div>
-  <div class="content">
-    <span class="flag">🔥 Directly applies to you</span>
-    <div class="label">AI Tools · Actionable</div>
-    <h2>Chrome Now Lets You Turn AI Prompts Into One-Click Browser Tools</h2>
-    <p class="summary">Google launched "Skills" in Chrome — save your best AI prompts as reusable one-click tools right in the browser. Select text, right-click, run a skill. Summarize legal docs, extract key terms, rewrite for tone, translate — whatever you've been doing manually with copy-paste-to-ChatGPT. For Whisperit's target audience of lawyers drowning in documents, this is both a threat (Chrome doing it natively) and an opportunity (shows the market wants exactly what you're building).</p>
-    <div class="meta">107 points · 55 comments · <a href="https://blog.google/products-and-platforms/products/chrome/skills-in-chrome/" target="_blank">blog.google →</a></div>
+<!-- 6 — indigo-gradient — Backblaze -->
+<section class="spread s6">
+  <span class="issue-num" style="color:#c7d2fe;">06 / 10</span>
+  <h1>Backblaze Quietly Stops Backing Up OneDrive & Dropbox Folders</h1>
+  <div class="blurb">
+    The top story on HN with over 1,000 points. Backblaze — the popular unlimited backup service — has silently stopped backing up cloud-synced folders from OneDrive, Dropbox, and potentially other providers. No announcement, no migration path. Users are discovering gaps in their backups after the fact. A reminder that "unlimited backup" always has asterisks, and that your backup strategy needs a backup strategy.
+  </div>
+  <div class="meta">
+    <span>▲ 1,016 points</span>
+    <span>💬 617 comments</span>
+    <a href="https://rareese.com/posts/backblaze/" target="_blank" style="color:#e0e7ff;">rareese.com →</a>
   </div>
 </section>
 
-<!-- 07: BOLD BLACK/WHITE -->
-<section class="spread s07">
-  <div class="numeral">07</div>
-  <div class="content">
-    <div class="label">Security · Privacy</div>
-    <h2>Fiverr Left Customer Files Public and Searchable</h2>
-    <p class="summary">A "Tell HN" post revealed that Fiverr's file storage was configured so that customer deliverables — design files, documents, code, everything exchanged between buyers and sellers — were publicly accessible and indexed by search engines. Anyone could find and download other people's paid work. 350 points and 62 comments of pure disbelief. A masterclass in what not to do with cloud storage permissions.</p>
-    <div class="meta">350 points · 62 comments · <a href="https://news.ycombinator.com/item?id=47769796" target="_blank">news.ycombinator.com →</a></div>
+<!-- 7 — bold-black-white — Google Back Button Hijacking -->
+<section class="spread s7">
+  <span class="issue-num">07 / 10</span>
+  <h1>GOOGLE DECLARES WAR ON BACK BUTTON HIJACKING</h1>
+  <div class="blurb">
+    Google Search has announced a new spam policy targeting "back button hijacking" — the infuriating practice where sites manipulate browser history to trap users. Sites that push fake history entries or redirect users when they hit back will now face manual actions and ranking demotions. About damn time. This affects SEO strategies broadly and is a win for user experience on the open web.
+  </div>
+  <div class="meta">
+    <span>▲ 859 points</span>
+    <span>💬 487 comments</span>
+    <a href="https://developers.google.com/search/blog/2026/04/back-button-hijacking" target="_blank">developers.google.com →</a>
   </div>
 </section>
 
-<!-- 08: WARM AMBER -->
-<section class="spread s08">
-  <div class="numeral">08</div>
-  <div class="content">
-    <div class="label">Culture · Archives</div>
-    <h2>Thousands of Rare Concert Recordings Just Hit the Internet Archive</h2>
-    <p class="summary">A massive trove of rare, unreleased concert recordings — spanning decades and genres — has been uploaded to the Internet Archive and is now freely available to stream and download. We're talking soundboard recordings, radio broadcasts, and audience tapes of legendary performances that have circulated in collector circles for years but were never widely available. The Archive continues to be one of the internet's most important institutions.</p>
-    <div class="meta">523 points · 160 comments · <a href="https://techcrunch.com/2026/04/13/thousands-of-rare-concert-recordings-are-landing-on-the-internet-archive-listen-now/" target="_blank">techcrunch.com →</a></div>
+<!-- 8 — warm-amber — Plain Python Framework -->
+<section class="spread s8">
+  <span class="issue-num" style="color:#fbbf24;">08 / 10</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h1>Plain: A Full-Stack Python Framework Built for Humans and AI Agents</h1>
+  <div class="blurb">
+    A new Show HN that's turning heads: Plain is a full-stack Python framework designed from the ground up to be used by both human developers and AI agents. Clean APIs, minimal boilerplate, and an architecture that plays well with LLM-driven coding workflows. For a team building AI products like Whisperit, frameworks that are "agent-native" could become the default choice.
+  </div>
+  <div class="meta">
+    <span>▲ 77 points</span>
+    <span>💬 28 comments</span>
+    <a href="https://github.com/dropseed/plain" target="_blank" style="color:#fbbf24;">github.com/dropseed/plain →</a>
   </div>
 </section>
 
-<!-- 09: TEAL SCIENCE -->
-<section class="spread s09">
-  <div class="numeral">09</div>
-  <div class="content">
-    <div class="label">AI Research</div>
-    <h2>Introspective Diffusion: A New Architecture That Lets Language Models "Think Visually"</h2>
-    <p class="summary">A new paper introduces Introspective Diffusion Language Models — a hybrid architecture that combines the generative power of diffusion models with the reasoning of language models. Instead of generating text token by token, the model can "diffuse" through multiple possible completions simultaneously, then converge on the best one. Early results show improved reasoning and more coherent long-form generation. This could be the next architectural paradigm after transformers.</p>
-    <div class="meta">229 points · 44 comments · <a href="https://introspective-diffusion.github.io/" target="_blank">introspective-diffusion.github.io →</a></div>
+<!-- 9 — teal-science — 3D Printing Censorship -->
+<section class="spread s9">
+  <span class="issue-num" style="color:#5eead4;">09 / 10</span>
+  <h1>California Wants to Censor 3D Printing — The EFF Fights Back</h1>
+  <div class="blurb">
+    The Electronic Frontier Foundation is sounding the alarm on California legislation that would effectively censor 3D printing by requiring manufacturers to build in restrictions on what can be printed. The EFF argues this sets a dangerous precedent for controlling general-purpose manufacturing tools, much like the crypto wars tried to restrict general-purpose computing. With 327 comments, the HN community is deeply divided.
+  </div>
+  <div class="meta">
+    <span>▲ 317 points</span>
+    <span>💬 327 comments</span>
+    <a href="https://www.eff.org/deeplinks/2026/04/dangers-californias-legislation-censor-3d-printing" target="_blank" style="color:#5eead4;">eff.org →</a>
   </div>
 </section>
 
-<!-- 10: BIG STAT FINISH -->
+<!-- 10 — big-stat-finish — Chrome AI Skills -->
 <section class="spread s10">
-  <div class="numeral">10</div>
-  <div class="content">
-    <div class="label">Cloud · Backup</div>
-    <h2>Backblaze Silently Stopped Backing Up Your Cloud Folders</h2>
-    <div class="big-stat">0 bytes</div>
-    <p class="summary">That's how much of your OneDrive, Dropbox, and possibly other cloud-synced folders Backblaze is now backing up. Without clear notice, Backblaze changed their backup behavior to exclude cloud-synced directories — meaning millions of users who thought their files were backed up in two places are actually backed up in zero additional places. 968 points and 594 comments of pure rage. <strong>Actionable:</strong> check your Backblaze settings today if you use it.</p>
-    <div class="meta">968 points · 594 comments · <a href="https://rareese.com/posts/backblaze/" target="_blank">rareese.com →</a></div>
+  <span class="issue-num" style="color:#fafafa;">10 / 10</span>
+  <div class="big-number">1-Click</div>
+  <h1>Turn Your Best AI Prompts Into Chrome Tools</h1>
+  <div class="blurb" style="max-width: 580px; margin-left: auto; margin-right: auto;">
+    Google is rolling out "Skills" in Chrome — save your best AI prompts as reusable one-click tools right in the browser toolbar. Summarize a page, extract data, rewrite text — all without switching to ChatGPT or Claude. It's the browser becoming the AI interface. Small feature, big signal about where Google thinks the AI UX layer lives.
+  </div>
+  <div class="meta" style="justify-content: center;">
+    <span>▲ 137 points</span>
+    <span>💬 62 comments</span>
+    <a href="https://blog.google/products-and-platforms/products/chrome/skills-in-chrome/" target="_blank">blog.google →</a>
   </div>
 </section>
 
 <!-- FOOTER -->
-<section class="footer">
-  <p>Morning Edition — built by Winston 🎩 for Romain</p>
-  <p style="margin-top:0.5rem;">Curated from <a href="https://news.ycombinator.com" target="_blank">Hacker News</a> · April 15, 2026</p>
+<section class="spread cover" style="min-height: 40vh;">
+  <div class="tagline">Curated by Winston 🎩 for Romain</div>
+  <div class="date" style="font-size: 0.9rem; margin-top: 0.5rem;">Sources: Hacker News · April 15, 2026</div>
 </section>
 
 </body>
