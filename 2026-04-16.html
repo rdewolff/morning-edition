@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 16, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+h1, h2, h3, .display { font-family: 'Fraunces', serif; }
+
+.spread {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .spread { padding: 4rem 6rem; } }
+@media (min-width: 1200px) { .spread { padding: 5rem 10rem; } }
+
+.meta { font-family: 'Inter', sans-serif; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; margin-bottom: 1.5rem; }
+.headline { line-height: 1.08; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+.byline { font-size: 1.1rem; line-height: 1.6; max-width: 48ch; margin-bottom: 2rem; }
+.stats { font-family: 'Inter', sans-serif; font-size: 0.9rem; display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+.stats a { text-decoration: none; font-weight: 600; }
+.stats span { opacity: 0.7; }
+.badge { display: inline-block; background: #e53e3e; color: #fff; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 1rem; border-radius: 4px; margin-bottom: 1.2rem; letter-spacing: 0.05em; text-transform: uppercase; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+.number { font-family: 'Fraunces', serif; font-weight: 900; font-size: 8rem; opacity: 0.08; position: absolute; top: 1.5rem; right: 2rem; line-height: 1; }
+@media (min-width: 768px) { .number { font-size: 14rem; top: 1rem; right: 3rem; } }
+
+/* Cover */
+.cover { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #f0f0f0; text-align: center; justify-content: center; align-items: center; }
+.cover .masthead { font-family: 'Fraunces', serif; font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+.cover .date { font-family: 'Inter', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; margin-bottom: 2rem; }
+.cover .tagline { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; opacity: 0.5; }
+.cover .divider { width: 60px; height: 3px; background: #e53e3e; margin: 1.5rem auto; }
+
+/* 1. Hero/Cream */
+.s-cream { background: #fdf6ec; color: #2d2015; }
+.s-cream .headline { font-size: clamp(2.5rem, 6vw, 5.5rem); font-weight: 900; }
+.s-cream .stats a { color: #c05621; }
+.s-cream .number { color: #2d2015; }
+
+/* 2. Dark/Midnight */
+.s-midnight { background: #0d1117; color: #e6edf3; }
+.s-midnight .headline { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; }
+.s-midnight .stats a { color: #58a6ff; }
+.s-midnight .number { color: #e6edf3; }
+.s-midnight .badge { background: #ff4444; }
+
+/* 3. Rose Alert Stamp */
+.s-rose { background: #fff5f5; color: #63171b; }
+.s-rose .headline { font-size: clamp(2.2rem, 5.5vw, 4.8rem); font-weight: 900; }
+.s-rose .stats a { color: #c53030; }
+.s-rose .number { color: #63171b; }
+.s-rose::after { content: ''; position: absolute; top: 50%; right: 5%; width: 200px; height: 200px; border: 8px solid rgba(197,48,48,0.08); border-radius: 50%; transform: translateY(-50%) rotate(-15deg); }
+
+/* 4. Terminal/Green */
+.s-terminal { background: #0a0a0a; color: #00ff41; font-family: 'Inter', monospace; }
+.s-terminal .headline { font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 700; font-family: 'Fraunces', serif; }
+.s-terminal .meta { color: #00ff41; }
+.s-terminal .byline { color: #00cc33; }
+.s-terminal .stats a { color: #00ff41; }
+.s-terminal .stats span { color: #008f11; }
+.s-terminal .number { color: #00ff41; }
+.s-terminal::before { content: '> _'; position: absolute; bottom: 2rem; left: 2rem; font-size: 1.5rem; opacity: 0.3; animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* 5. Academic Drop Cap */
+.s-academic { background: #fafaf8; color: #1a1a1a; }
+.s-academic .headline { font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 700; }
+.s-academic .byline::first-letter { font-family: 'Fraunces', serif; font-size: 3.5rem; float: left; line-height: 0.8; margin-right: 0.5rem; margin-top: 0.15rem; font-weight: 900; color: #4a5568; }
+.s-academic .stats a { color: #2b6cb0; }
+.s-academic .number { color: #1a1a1a; }
+.s-academic::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: #1a1a1a; }
+
+/* 6. Indigo Gradient */
+.s-indigo { background: linear-gradient(160deg, #312e81, #4338ca, #6366f1); color: #e0e7ff; }
+.s-indigo .headline { font-size: clamp(2.5rem, 6vw, 5.2rem); font-weight: 900; color: #fff; }
+.s-indigo .stats a { color: #c7d2fe; }
+.s-indigo .number { color: #e0e7ff; }
+
+/* 7. Bold Black White */
+.s-bold { background: #fff; color: #000; }
+.s-bold .headline { font-size: clamp(3rem, 7vw, 6rem); font-weight: 900; text-transform: uppercase; }
+.s-bold .stats a { color: #000; border-bottom: 2px solid #000; }
+.s-bold .number { color: #000; }
+.s-bold::before { content: ''; position: absolute; top: 0; left: 0; width: 8px; height: 100%; background: #000; }
+
+/* 8. Warm Amber */
+.s-amber { background: linear-gradient(170deg, #fffbeb, #fef3c7); color: #78350f; }
+.s-amber .headline { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; color: #92400e; }
+.s-amber .stats a { color: #d97706; }
+.s-amber .number { color: #78350f; }
+
+/* 9. Teal Science */
+.s-teal { background: #042f2e; color: #ccfbf1; }
+.s-teal .headline { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; color: #5eead4; }
+.s-teal .byline { color: #99f6e4; }
+.s-teal .stats a { color: #2dd4bf; }
+.s-teal .number { color: #ccfbf1; }
+
+/* 10. Big Stat Finish */
+.s-stat { background: #18181b; color: #fafafa; text-align: center; align-items: center; }
+.s-stat .headline { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; }
+.s-stat .big-number { font-family: 'Fraunces', serif; font-size: clamp(5rem, 12vw, 10rem); font-weight: 900; line-height: 1; margin-bottom: 0.5rem; background: linear-gradient(135deg, #f97316, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.s-stat .stats { justify-content: center; }
+.s-stat .stats a { color: #f97316; }
+.s-stat .number { color: #fafafa; }
+
+/* Footer */
+.footer { background: #0d1117; color: #8b949e; text-align: center; padding: 2rem; font-size: 0.85rem; min-height: auto; scroll-snap-align: end; }
+.footer a { color: #58a6ff; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="spread cover">
+  <div class="masthead">Morning Edition</div>
+  <div class="divider"></div>
+  <div class="date">Wednesday, April 16, 2026</div>
+  <div class="tagline">10 stories worth your morning coffee</div>
+</section>
+
+<!-- 1. HERO/CREAM — Google/ICE Privacy -->
+<section class="spread s-cream">
+  <div class="number">01</div>
+  <div class="meta">Privacy &bull; EFF</div>
+  <h1 class="headline">Google Broke Its Promise to Me — Now ICE Has My Data</h1>
+  <p class="byline">The Electronic Frontier Foundation reports on how Google reversed its privacy commitments, handing user data directly to immigration enforcement. A sobering reminder that promises from Big Tech are only as strong as their next legal challenge.</p>
+  <div class="stats">
+    <span>▲ 1,281 points</span>
+    <span>💬 549 comments</span>
+    <a href="https://www.eff.org/deeplinks/2026/04/google-broke-its-promise-me-now-ice-has-my-data" target="_blank">Read on EFF →</a>
+    <a href="https://news.ycombinator.com/item?id=47782570" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 2. DARK/MIDNIGHT — AI Attorney-Client Privilege -->
+<section class="spread s-midnight">
+  <div class="number">02</div>
+  <div class="badge">🔥 Directly applies to you</div>
+  <div class="meta">AI &amp; Law &bull; S.D.N.Y.</div>
+  <h1 class="headline">US Court Rules: No Attorney-Client Privilege for AI Chats</h1>
+  <p class="byline">In US v. Heppner, a federal judge ruled that conversations with AI tools don't qualify for attorney-client privilege. This has massive implications for legal AI products — including Whisperit. Lawyers using AI assistants for case work may need to rethink their workflows entirely.</p>
+  <div class="stats">
+    <span>▲ 109 points</span>
+    <span>💬 84 comments</span>
+    <a href="https://fingfx.thomsonreuters.com/gfx/legaldocs/xmvjyjekkpr/Rakoff%20-%20order%20-%20AI.pdf" target="_blank">Read the ruling (PDF) →</a>
+    <a href="https://news.ycombinator.com/item?id=47778920" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 3. ROSE ALERT STAMP — Cybersecurity -->
+<section class="spread s-rose">
+  <div class="number">03</div>
+  <div class="meta">Security &bull; Analysis</div>
+  <h1 class="headline">Cybersecurity Looks Like Proof of Work Now</h1>
+  <p class="byline">The modern cybersecurity landscape has devolved into an expensive performance — compliance theater that burns resources without meaningfully reducing risk. A sharp take on why we're spending more and getting less secure.</p>
+  <div class="stats">
+    <span>▲ 327 points</span>
+    <span>💬 114 comments</span>
+    <a href="https://www.dbreunig.com/2026/04/14/cybersecurity-is-proof-of-work-now.html" target="_blank">Read the analysis →</a>
+    <a href="https://news.ycombinator.com/item?id=47769089" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 4. TERMINAL/GREEN — Cal.com Closed Source -->
+<section class="spread s-terminal">
+  <div class="number">04</div>
+  <div class="meta">Open Source &bull; Startups</div>
+  <h1 class="headline">Cal.com Is Going Closed Source</h1>
+  <p class="byline">Another open-source darling goes proprietary. Cal.com announced the shift citing sustainability concerns, triggering a massive debate about the viability of open-source business models. The open-source community is not happy.</p>
+  <div class="stats">
+    <span>▲ 257 points</span>
+    <span>💬 185 comments</span>
+    <a href="https://cal.com/blog/cal-com-goes-closed-source-why" target="_blank">Read their reasoning →</a>
+    <a href="https://news.ycombinator.com/item?id=47780456" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 5. ACADEMIC DROP CAP — ChatGPT for Excel -->
+<section class="spread s-academic">
+  <div class="number">05</div>
+  <div class="meta">AI Tools &bull; OpenAI</div>
+  <h1 class="headline">ChatGPT for Excel Is Here</h1>
+  <p class="byline">OpenAI shipped a native spreadsheet integration — formulas, analysis, and data manipulation powered by GPT directly inside Excel. For the millions of knowledge workers who live in spreadsheets, this could be the most impactful AI tool yet. Less prompt engineering, more just doing the work.</p>
+  <div class="stats">
+    <span>▲ 148 points</span>
+    <span>💬 108 comments</span>
+    <a href="https://chatgpt.com/apps/spreadsheets/" target="_blank">Try it →</a>
+    <a href="https://news.ycombinator.com/item?id=47785397" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 6. INDIGO GRADIENT — Do You Even Need a Database? -->
+<section class="spread s-indigo">
+  <div class="number">06</div>
+  <div class="meta">Dev Tools &bull; Architecture</div>
+  <h1 class="headline">Do You Even Need a Database?</h1>
+  <p class="byline">A provocative argument that many apps are over-engineered from day one. Files, in-memory stores, and simple key-value solutions can take you further than you think. Sometimes the best database is no database.</p>
+  <div class="stats">
+    <span>▲ 229 points</span>
+    <span>💬 259 comments</span>
+    <a href="https://www.dbpro.app/blog/do-you-even-need-a-database" target="_blank">Read the argument →</a>
+    <a href="https://news.ycombinator.com/item?id=47778086" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 7. BOLD BLACK WHITE — Gemini on Mac -->
+<section class="spread s-bold">
+  <div class="number">07</div>
+  <div class="meta">AI &bull; Google</div>
+  <h1 class="headline">The Gemini App Is Now on Mac</h1>
+  <p class="byline">Google brings Gemini to macOS as a native app — direct competition to ChatGPT's desktop client. The AI assistant race on the desktop is heating up fast.</p>
+  <div class="stats">
+    <span>▲ 117 points</span>
+    <span>💬 56 comments</span>
+    <a href="https://blog.google/innovation-and-ai/products/gemini-app/gemini-app-now-on-mac-os/" target="_blank">Google's announcement →</a>
+    <a href="https://news.ycombinator.com/item?id=47782256" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 8. WARM AMBER — Darkbloom Private Inference -->
+<section class="spread s-amber">
+  <div class="number">08</div>
+  <div class="meta">AI &bull; Privacy &bull; Infrastructure</div>
+  <h1 class="headline">Darkbloom — Private Inference on Idle Macs</h1>
+  <p class="byline">A new service that turns your idle Mac into a private AI inference node. Your data never leaves your machine. In a world where AI privacy is becoming a legal minefield, running models locally might be the smartest play.</p>
+  <div class="stats">
+    <span>▲ 41 points</span>
+    <span>💬 21 comments</span>
+    <a href="https://darkbloom.dev" target="_blank">Check it out →</a>
+    <a href="https://news.ycombinator.com/item?id=47788542" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 9. TEAL SCIENCE — CRISPR Down Syndrome -->
+<section class="spread s-teal">
+  <div class="number">09</div>
+  <div class="meta">Science &bull; Genetics</div>
+  <h1 class="headline">CRISPR Takes Bold Step Toward Silencing Down Syndrome's Extra Chromosome</h1>
+  <p class="byline">Researchers achieved a significant milestone in using CRISPR gene editing to silence the extra copy of chromosome 21 responsible for Down syndrome. Still early-stage, but the implications for genetic medicine are profound.</p>
+  <div class="stats">
+    <span>▲ 103 points</span>
+    <span>💬 63 comments</span>
+    <a href="https://medicalxpress.com/news/2026-04-crispr-bold-silencing-syndrome-extra.html" target="_blank">Read the research →</a>
+    <a href="https://news.ycombinator.com/item?id=47781286" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- 10. BIG STAT FINISH — I Made a Terminal Pager -->
+<section class="spread s-stat">
+  <div class="number">10</div>
+  <div class="big-number">97</div>
+  <div class="meta">Dev Tools &bull; Terminal</div>
+  <h1 class="headline">I Made a Terminal Pager</h1>
+  <p class="byline" style="text-align:center; margin-left:auto; margin-right:auto;">A developer built a new terminal pager from scratch — think `less` but modern, with better search, syntax highlighting, and a UI that doesn't feel like 1985. Sometimes the best tools are the ones you build yourself.</p>
+  <div class="stats">
+    <span>▲ 97 points</span>
+    <span>💬 20 comments</span>
+    <a href="https://theleo.zone/posts/pager/" target="_blank">Read the story →</a>
+    <a href="https://news.ycombinator.com/item?id=47786164" target="_blank">HN Discussion →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  Curated by 🎩 Winston &bull; <a href="https://news.ycombinator.com">Hacker News</a> &bull; April 16, 2026
+</div>
+
+</body>
+</html>
