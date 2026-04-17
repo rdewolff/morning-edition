@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 17, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: #111; color: #222; }
+
+.spread {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 8vw;
+  position: relative;
+  overflow: hidden;
+}
+
+h1, h2 { font-family: 'Fraunces', serif; }
+
+.story-number {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  opacity: 0.12;
+  position: absolute;
+  top: 4vh;
+  right: 6vw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+  max-width: 900px;
+}
+
+.headline a { color: inherit; text-decoration: none; }
+.headline a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+
+.meta {
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.meta span { margin-right: 1.5rem; }
+
+.blurb {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.7;
+  max-width: 700px;
+  font-weight: 400;
+}
+
+.badge {
+  display: inline-block;
+  background: #e63946;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Cover */
+.cover {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  color: #f5f5f5;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.cover .date {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 2rem;
+}
+.cover h1 {
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.cover .subtitle {
+  font-size: 1.2rem;
+  opacity: 0.6;
+  font-weight: 300;
+}
+
+/* 1 — Hero Cream */
+.s1 { background: #fdf6ec; color: #2c1810; }
+.s1 .story-number { color: #c9a96e; opacity: 0.15; }
+.s1 .headline { color: #1a0e08; }
+
+/* 2 — Dark Midnight */
+.s2 { background: #0d1117; color: #c9d1d9; }
+.s2 .story-number { color: #58a6ff; opacity: 0.1; }
+.s2 .headline { color: #f0f6fc; }
+
+/* 3 — Rose Alert Stamp */
+.s3 { background: #fff0f0; color: #3d0c0c; }
+.s3 .story-number { color: #e63946; opacity: 0.1; }
+.s3 .headline { color: #1a0505; }
+.s3::before {
+  content: 'OPEN SOURCE';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  font-family: 'Fraunces', serif;
+  font-size: clamp(5rem, 12vw, 10rem);
+  font-weight: 900;
+  color: #e63946;
+  opacity: 0.05;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* 4 — Terminal Green */
+.s4 { background: #0a0a0a; color: #33ff33; font-family: 'Courier New', monospace; }
+.s4 .story-number { color: #33ff33; opacity: 0.08; }
+.s4 .headline { color: #33ff33; font-family: 'Fraunces', serif; }
+.s4 .blurb { font-family: 'Courier New', monospace; }
+.s4::before {
+  content: '> _';
+  position: absolute;
+  bottom: 4vh;
+  left: 8vw;
+  font-size: 2rem;
+  opacity: 0.3;
+  animation: blink 1.2s infinite;
+}
+@keyframes blink { 0%,50% { opacity: 0.3; } 51%,100% { opacity: 0; } }
+
+/* 5 — Academic Drop Cap */
+.s5 { background: #fafaf5; color: #333; }
+.s5 .story-number { color: #8b7355; opacity: 0.1; }
+.s5 .headline { color: #1a1a1a; }
+.s5 .blurb::first-letter {
+  font-family: 'Fraunces', serif;
+  font-size: 4rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.5rem;
+  margin-top: 0.1rem;
+  color: #8b4513;
+  font-weight: 900;
+}
+
+/* 6 — Indigo Gradient */
+.s6 { background: linear-gradient(160deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); color: #e0e7ff; }
+.s6 .story-number { color: #818cf8; opacity: 0.1; }
+.s6 .headline { color: #fff; }
+
+/* 7 — Bold Black & White */
+.s7 { background: #fff; color: #000; }
+.s7 .story-number { color: #000; opacity: 0.06; }
+.s7 .headline { color: #000; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.s7 .blurb { font-weight: 500; }
+
+/* 8 — Warm Amber */
+.s8 { background: #451a03; color: #fde68a; }
+.s8 .story-number { color: #f59e0b; opacity: 0.08; }
+.s8 .headline { color: #fef3c7; }
+
+/* 9 — Teal Science */
+.s9 { background: #042f2e; color: #99f6e4; }
+.s9 .story-number { color: #2dd4bf; opacity: 0.08; }
+.s9 .headline { color: #ccfbf1; }
+
+/* 10 — Big Stat Finish */
+.s10 { background: #18181b; color: #a1a1aa; }
+.s10 .story-number { color: #fff; opacity: 0.04; }
+.s10 .headline { color: #fafafa; }
+.s10 .big-stat {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(5rem, 14vw, 12rem);
+  font-weight: 900;
+  color: #3b82f6;
+  line-height: 1;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+/* Footer */
+.footer {
+  min-height: 30vh;
+  background: #0a0a0a;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  scroll-snap-align: start;
+  padding: 4rem;
+  text-align: center;
+}
+.footer p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="spread cover">
+  <p class="date">Friday, April 17, 2026</p>
+  <h1>Morning Edition</h1>
+  <p class="subtitle">10 stories worth your morning · Curated for Romain</p>
+</section>
+
+<!-- 1 — Hero Cream: Claude Opus 4.7 -->
+<section class="spread s1">
+  <span class="story-number">01</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h2 class="headline"><a href="https://www.anthropic.com/news/claude-opus-4-7" target="_blank">Claude Opus 4.7</a></h2>
+  <p class="meta"><span>▲ 1,588</span><span>💬 1,122</span><span>anthropic.com</span></p>
+  <p class="blurb">Anthropic drops Opus 4.7 — the model you're literally running right now just got a successor. This is the biggest HN thread of the day by a mile. The discussion covers benchmark gains, reasoning improvements, and whether the Opus line is pulling ahead of GPT for agentic work. As the CEO of an AI-powered tool for lawyers, this one's directly in your lane.</p>
+</section>
+
+<!-- 2 — Dark Midnight: Qwen3.6-35B-A3B -->
+<section class="spread s2">
+  <span class="story-number">02</span>
+  <h2 class="headline"><a href="https://qwen.ai/blog?id=qwen3.6-35b-a3b" target="_blank">Qwen3.6-35B-A3B: Agentic Coding Power, Now Open to All</a></h2>
+  <p class="meta"><span>▲ 981</span><span>💬 433</span><span>qwen.ai</span></p>
+  <p class="blurb">Alibaba's Qwen team releases a 35B parameter model with only 3B active — a mixture-of-experts beast that runs on consumer hardware while punching way above its weight in coding benchmarks. The open-source AI race just got a serious new contender.</p>
+</section>
+
+<!-- 3 — Rose Alert: Codex for Almost Everything -->
+<section class="spread s3">
+  <span class="story-number">03</span>
+  <h2 class="headline"><a href="https://openai.com/index/codex-for-almost-everything/" target="_blank">Codex for Almost Everything</a></h2>
+  <p class="meta"><span>▲ 767</span><span>💬 389</span><span>openai.com</span></p>
+  <p class="blurb">OpenAI's Codex graduates from code-only to general-purpose agent. The post details new capabilities in writing, research, and multi-step reasoning. 389 comments and counting — the HN crowd is torn between "finally" and "still not Claude."</p>
+</section>
+
+<!-- 4 — Terminal Green: The Future of Everything Is Lies -->
+<section class="spread s4">
+  <span class="story-number">04</span>
+  <h2 class="headline"><a href="https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here" target="_blank">The Future of Everything Is Lies, I Guess</a></h2>
+  <p class="meta"><span>▲ 552</span><span>💬 601</span><span>aphyr.com</span></p>
+  <p class="blurb">Kyle Kingsbury (of Jepsen fame) writes the most-discussed essay of the day. 601 comments deep. A sharp take on AI-generated content flooding every surface of the internet, and what it means for trust, verification, and the future of knowledge work. Essential reading.</p>
+</section>
+
+<!-- 5 — Academic: Qwen Beats Opus at Drawing Pelicans -->
+<section class="spread s5">
+  <span class="story-number">05</span>
+  <h2 class="headline"><a href="https://simonwillison.net/2026/Apr/16/qwen-beats-opus/" target="_blank">Qwen3.6 on My Laptop Drew a Better Pelican Than Claude Opus 4.7</a></h2>
+  <p class="meta"><span>▲ 350</span><span>💬 75</span><span>simonwillison.net</span></p>
+  <p class="blurb">Simon Willison puts the new Qwen model through a delightfully unscientific test: generating SVG pelicans. The open-source 3B-active model running locally outdraws Anthropic's flagship. A fun, visual benchmark that says more about the state of AI art than most papers.</p>
+</section>
+
+<!-- 6 — Indigo Gradient: Cloudflare AI Platform -->
+<section class="spread s6">
+  <span class="story-number">06</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h2 class="headline"><a href="https://blog.cloudflare.com/ai-platform/" target="_blank">Cloudflare's AI Platform: An Inference Layer Designed for Agents</a></h2>
+  <p class="meta"><span>▲ 256</span><span>💬 60</span><span>cloudflare.com</span></p>
+  <p class="blurb">Cloudflare goes all-in on AI infrastructure — a purpose-built inference layer for agentic workloads at the edge. If Whisperit ever needs to scale inference without the AWS tax, this is worth bookmarking. Smart routing, caching, and model orchestration baked into the CDN layer.</p>
+</section>
+
+<!-- 7 — Bold B&W: The Passive Income Trap -->
+<section class="spread s7">
+  <span class="story-number">07</span>
+  <h2 class="headline"><a href="https://www.joanwestenberg.com/the-passive-income-trap-ate-a-generation-of-entrepreneurs/" target="_blank">The "Passive Income" Trap Ate a Generation of Entrepreneurs</a></h2>
+  <p class="meta"><span>▲ 232</span><span>💬 166</span><span>joanwestenberg.com</span></p>
+  <p class="blurb">A sharp essay on how the passive income fantasy diverted a generation of smart people from building real companies into optimizing affiliate funnels and dropshipping stores. The comments are a graveyard of people admitting they fell for it.</p>
+</section>
+
+<!-- 8 — Warm Amber: Codex Hacked a Samsung TV -->
+<section class="spread s8">
+  <span class="story-number">08</span>
+  <h2 class="headline"><a href="https://blog.calif.io/p/codex-hacked-a-samsung-tv" target="_blank">Codex Hacked a Samsung TV</a></h2>
+  <p class="meta"><span>▲ 229</span><span>💬 125</span><span>calif.io</span></p>
+  <p class="blurb">A security researcher points OpenAI's Codex at a Samsung smart TV and watches it find and exploit vulnerabilities autonomously. The implications for AI-assisted security research — and AI-assisted attacks — are hard to overstate. 125 comments of "this is fine" and "this is not fine."</p>
+</section>
+
+<!-- 9 — Teal Science: AI Cybersecurity Is Not Proof of Work -->
+<section class="spread s9">
+  <span class="story-number">09</span>
+  <h2 class="headline"><a href="https://antirez.com/news/163" target="_blank">AI Cybersecurity Is Not Proof of Work</a></h2>
+  <p class="meta"><span>▲ 213</span><span>💬 82</span><span>antirez.com</span></p>
+  <p class="blurb">Antirez (Redis creator) pushes back on the idea that AI security is just about making attacks expensive enough. A nuanced take on why the "proof of work" framing for AI safety is fundamentally flawed, and what defenders actually need to focus on.</p>
+</section>
+
+<!-- 10 — Big Stat: Cloudflare Artifacts -->
+<section class="spread s10">
+  <div class="big-stat">Git</div>
+  <span class="story-number">10</span>
+  <h2 class="headline"><a href="https://blog.cloudflare.com/artifacts-git-for-agents-beta/" target="_blank">Artifacts: Versioned Storage That Speaks Git</a></h2>
+  <p class="meta"><span>▲ 177</span><span>💬 20</span><span>cloudflare.com</span></p>
+  <p class="blurb">Cloudflare launches Artifacts — a versioned storage layer that gives AI agents native Git semantics. Push, pull, diff, branch — all at the edge. For anyone building agentic systems that need to track state across runs, this is infrastructure that didn't exist yesterday.</p>
+</section>
+
+<!-- FOOTER -->
+<section class="footer">
+  <p>🎩 Morning Edition · Built by Winston</p>
+  <p>Friday, April 17, 2026 · Hacker News top stories</p>
+</section>
+
+</body>
+</html>
