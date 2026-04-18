@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 18, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;overflow-x:hidden}
+.spread{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:clamp(2rem,6vw,6rem);position:relative;overflow:hidden}
+h1,.headline{font-family:'Fraunces',serif;line-height:1.08;letter-spacing:-0.03em}
+.meta{font-family:'Inter',sans-serif;font-weight:500;font-size:clamp(0.85rem,1.2vw,1.1rem);opacity:0.7;margin-top:1.2rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center}
+.meta a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.badge{display:inline-block;background:#e53e3e;color:#fff;font-size:0.85rem;font-weight:700;padding:0.4rem 1rem;border-radius:4px;margin-bottom:1rem;letter-spacing:0.02em}
+.story-num{font-family:'Fraunces',serif;font-weight:900;opacity:0.08;position:absolute;font-size:clamp(10rem,22vw,20rem);right:-2%;bottom:-5%;line-height:1;pointer-events:none}
+.source{font-size:0.8rem;opacity:0.5;margin-top:0.5rem}
+.summary{font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.6;max-width:42em;margin-top:1.2rem;font-weight:300}
+
+/* 1 — Hero / Cream */
+.s1{background:#fdf6e3;color:#2d2006}
+.s1 .headline{font-size:clamp(2.8rem,6.5vw,6rem);font-weight:900}
+
+/* 2 — Dark / Midnight */
+.s2{background:#0f172a;color:#e2e8f0}
+.s2 .headline{font-size:clamp(2.5rem,5.5vw,5.5rem);font-weight:800;color:#f8fafc}
+
+/* 3 — Rose Alert Stamp */
+.s3{background:#fff1f2;color:#4a0d13}
+.s3 .headline{font-size:clamp(2.5rem,5.5vw,5rem);font-weight:900;text-transform:uppercase;letter-spacing:0.04em;border:6px solid #e53e3e;padding:1rem 1.5rem;display:inline-block;transform:rotate(-1.5deg)}
+
+/* 4 — Terminal / Green on Black */
+.s4{background:#0a0a0a;color:#22c55e;font-family:'Courier New',monospace}
+.s4 .headline{font-family:'Courier New',monospace;font-size:clamp(2rem,4.5vw,4.5rem);font-weight:700}
+.s4 .meta{color:#22c55e}
+.s4 .meta a{color:#22c55e}
+.s4::before{content:'> ';font-size:clamp(2rem,4.5vw,4.5rem);opacity:0.4}
+
+/* 5 — Academic Drop Cap */
+.s5{background:#fafaf9;color:#1c1917;border-left:8px solid #292524}
+.s5 .headline{font-size:clamp(2.5rem,5vw,5rem);font-weight:400;font-style:italic}
+.s5 .dropcap{font-family:'Fraunces',serif;font-size:clamp(5rem,10vw,9rem);float:left;line-height:0.8;margin-right:0.15em;font-weight:900;color:#292524}
+
+/* 6 — Indigo Gradient */
+.s6{background:linear-gradient(135deg,#312e81,#4338ca,#6366f1);color:#e0e7ff}
+.s6 .headline{font-size:clamp(2.5rem,5.5vw,5.5rem);font-weight:800;color:#fff}
+
+/* 7 — Bold Black & White */
+.s7{background:#fff;color:#000}
+.s7 .headline{font-size:clamp(3rem,7vw,7rem);font-weight:900;text-transform:uppercase;line-height:0.95}
+
+/* 8 — Warm Amber */
+.s8{background:#451a03;color:#fef3c7}
+.s8 .headline{font-size:clamp(2.5rem,5.5vw,5.5rem);font-weight:700;color:#fbbf24}
+
+/* 9 — Teal Science */
+.s9{background:#042f2e;color:#ccfbf1}
+.s9 .headline{font-size:clamp(2.5rem,5vw,5rem);font-weight:800;color:#5eead4}
+
+/* 10 — Big Stat Finish */
+.s10{background:#18181b;color:#fafafa;text-align:center}
+.s10 .headline{font-size:clamp(2.5rem,5.5vw,5.5rem);font-weight:900}
+.s10 .big-stat{font-family:'Fraunces',serif;font-size:clamp(5rem,14vw,12rem);font-weight:900;color:#a78bfa;line-height:1;margin-bottom:0.5rem}
+.s10 .meta{justify-content:center}
+
+/* Cover */
+.cover{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%);color:#f8fafc;padding:3rem}
+.cover h1{font-size:clamp(3.5rem,9vw,8rem);font-weight:900;letter-spacing:-0.04em;line-height:1}
+.cover .date{font-size:clamp(1.2rem,2vw,1.8rem);font-weight:300;opacity:0.6;margin-top:1rem;font-family:'Inter',sans-serif}
+.cover .tagline{font-size:clamp(1rem,1.5vw,1.3rem);font-weight:400;opacity:0.4;margin-top:2rem;font-family:'Inter',sans-serif}
+
+@media(max-width:600px){
+  .spread{padding:1.5rem}
+  .story-num{font-size:8rem;right:-5%}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+<h1 class="headline">Morning<br>Edition</h1>
+<div class="date">Saturday, April 18, 2026</div>
+<div class="tagline">10 stories worth your coffee ☕</div>
+</section>
+
+<!-- 1 — Claude Design (Hero/Cream) -->
+<section class="spread s1">
+<div class="badge">🔥 Directly applies to you</div>
+<h1 class="headline">Claude Gets a Design Tool — Anthropic Launches Claude&nbsp;Design</h1>
+<p class="summary">Anthropic unveils Claude Design, a new visual design and prototyping capability inside the Claude ecosystem. For anyone building AI-powered products, this is table-stakes: AI that can reason about layouts, generate interfaces, and iterate on visual designs through conversation.</p>
+<div class="meta">
+<span>⬆ 929 pts</span>
+<span>💬 615 comments</span>
+<span><a href="https://www.anthropic.com/news/claude-design-anthropic-labs" target="_blank">anthropic.com</a></span>
+</div>
+<div class="story-num">01</div>
+</section>
+
+<!-- 2 — Asimov's Last Question (Dark/Midnight) -->
+<section class="spread s2">
+<h1 class="headline">Isaac Asimov's "The Last Question" — Still the Best Sci-Fi&nbsp;Story&nbsp;Ever&nbsp;Written</h1>
+<p class="summary">Asimov's 1956 masterpiece about entropy, computation, and the ultimate fate of the universe resurfaces on HN. If you haven't read it, today's the day. If you have, you know why it's back on top.</p>
+<div class="meta">
+<span>⬆ 678 pts</span>
+<span>💬 270 comments</span>
+<span><a href="https://hex.ooo/library/last_question.html" target="_blank">hex.ooo</a></span>
+</div>
+<div class="story-num">02</div>
+</section>
+
+<!-- 3 — Ban Geolocation Sales (Rose Alert Stamp) -->
+<section class="spread s3">
+<h1 class="headline">Ban the Sale of Precise Geolocation</h1>
+<p class="summary">Lawfare makes the case: the commercial trade in precise location data is a surveillance infrastructure hiding in plain sight. With data brokers selling movements of millions, the argument for an outright ban is getting harder to ignore.</p>
+<div class="meta">
+<span>⬆ 654 pts</span>
+<span>💬 171 comments</span>
+<span><a href="https://www.lawfaremedia.org/article/it-is-time-to-ban-the-sale-of-precise-geolocation" target="_blank">lawfaremedia.org</a></span>
+</div>
+<div class="story-num">03</div>
+</section>
+
+<!-- 4 — Claude 4.7 Tokenizer (Terminal/Green) -->
+<section class="spread s4">
+<div class="badge">🔥 Directly applies to you</div>
+<h1 class="headline">$ measure --model claude-4.7 --tokenizer-costs</h1>
+<p class="summary" style="font-family:'Courier New',monospace">Someone benchmarked Claude 4.7's new tokenizer and broke down exactly what it costs per token, per request, per dollar. Essential reading for anyone running Claude at scale — and that means you.</p>
+<div class="meta">
+<span>⬆ 569 pts</span>
+<span>💬 398 comments</span>
+<span><a href="https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you" target="_blank">claudecodecamp.com</a></span>
+</div>
+<div class="story-num">04</div>
+</section>
+
+<!-- 5 — Moonwalkers Hay Fever (Academic Drop Cap) -->
+<section class="spread s5">
+<h1 class="headline"><span class="dropcap">A</span>ll 12 Moonwalkers Had "Lunar Hay Fever" from Dust Smelling Like&nbsp;Gunpowder</h1>
+<p class="summary">Every astronaut who walked on the Moon reported the same thing: fine lunar dust that smelled like spent gunpowder and triggered allergic reactions. ESA's deep dive into lunar toxicology raises real questions for the next generation of Moon missions.</p>
+<div class="meta">
+<span>⬆ 283 pts</span>
+<span>💬 161 comments</span>
+<span><a href="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/The_toxic_side_of_the_Moon" target="_blank">esa.int</a></span>
+</div>
+<div class="story-num">05</div>
+</section>
+
+<!-- 6 — Smol Machines (Indigo Gradient) -->
+<section class="spread s6">
+<h1 class="headline">Smol Machines: Subsecond Cold-Start, Portable Virtual&nbsp;Machines</h1>
+<p class="summary">A new open-source project promising VMs that boot in under a second. Think containers but with actual isolation. If this delivers on the promise, it could change how we think about serverless and edge compute.</p>
+<div class="meta">
+<span>⬆ 280 pts</span>
+<span>💬 91 comments</span>
+<span><a href="https://github.com/smol-machines/smolvm" target="_blank">github.com/smol-machines</a></span>
+</div>
+<div class="story-num">06</div>
+</section>
+
+<!-- 7 — NASA Force (Bold Black & White) -->
+<section class="spread s7">
+<h1 class="headline">NASA<br>FORCE</h1>
+<p class="summary">NASA gets a rebrand with military swagger. The new "NASA Force" identity has launched at nasaforce.gov, sparking heated debate about whether this is smart positioning for the new space race or a betrayal of the agency's scientific identity.</p>
+<div class="meta">
+<span>⬆ 253 pts</span>
+<span>💬 256 comments</span>
+<span><a href="https://nasaforce.gov/" target="_blank">nasaforce.gov</a></span>
+</div>
+<div class="story-num">07</div>
+</section>
+
+<!-- 8 — NIST CVEs (Warm Amber) -->
+<section class="spread s8">
+<h1 class="headline">NIST Gives Up Enriching Most&nbsp;CVEs</h1>
+<p class="summary">The National Vulnerability Database is effectively throwing in the towel on enriching the majority of CVEs. For anyone who relies on NIST's metadata to prioritize security patches — basically everyone — this is a serious infrastructure problem.</p>
+<div class="meta">
+<span>⬆ 187 pts</span>
+<span>💬 41 comments</span>
+<span><a href="https://risky.biz/risky-bulletin-nist-gives-up-enriching-most-cves/" target="_blank">risky.biz</a></span>
+</div>
+<div class="story-num">08</div>
+</section>
+
+<!-- 9 — AI Agent Costs (Teal Science) -->
+<section class="spread s9">
+<div class="badge">🔥 Directly applies to you</div>
+<h1 class="headline">Are the Costs of AI Agents Also Rising&nbsp;Exponentially?</h1>
+<p class="summary">Toby Ord crunches the numbers on AI agent hourly costs and finds a troubling trend: as capabilities scale, so do operational costs. For Whisperit and any company running agents in production, this is the economic question that defines 2026.</p>
+<div class="meta">
+<span>⬆ 148 pts</span>
+<span>💬 28 comments</span>
+<span><a href="https://www.tobyord.com/writing/hourly-costs-for-ai-agents" target="_blank">tobyord.com</a></span>
+</div>
+<div class="story-num">09</div>
+</section>
+
+<!-- 10 — cat readme.txt (Big Stat Finish) -->
+<section class="spread s10">
+<div class="big-stat">cat</div>
+<h1 class="headline">"cat readme.txt" Is Not Safe If You Use&nbsp;iTerm2</h1>
+<p class="summary">A wild terminal escape sequence vulnerability in iTerm2 means simply catting a malicious text file can execute arbitrary commands. If you're on macOS and use iTerm2 — and you probably do — read this now and update.</p>
+<div class="meta">
+<span>⬆ 134 pts</span>
+<span>💬 75 comments</span>
+<span><a href="https://blog.calif.io/p/mad-bugs-even-cat-readmetxt-is-not" target="_blank">blog.calif.io</a></span>
+</div>
+<div class="story-num">10</div>
+</section>
+
+</body>
+</html>
