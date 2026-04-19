@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 19, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;overflow-x:hidden;background:#111}
+.spread{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:clamp(2rem,6vw,6rem);position:relative;overflow:hidden}
+h1,h2,.display{font-family:'Fraunces',serif}
+.meta{font-size:clamp(0.85rem,1.2vw,1.1rem);opacity:0.7;margin-top:1.5rem;letter-spacing:0.02em}
+.meta a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.badge{display:inline-block;background:#e53e3e;color:#fff;font-size:0.85rem;font-weight:600;padding:0.4rem 1rem;border-radius:2rem;margin-bottom:1.5rem;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.story-num{font-family:'Fraunces',serif;font-size:clamp(4rem,10vw,10rem);opacity:0.08;position:absolute;top:1rem;right:2rem;font-weight:900;line-height:1}
+.nav-dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:0.7rem}
+.nav-dots a{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.3);display:block;transition:all 0.3s}
+.nav-dots a:hover,.nav-dots a.active{background:rgba(255,255,255,0.9);transform:scale(1.3)}
+
+/* Cover */
+.cover{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;text-align:center;justify-content:center;align-items:center}
+.cover h1{font-size:clamp(3rem,8vw,7rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em}
+.cover .subtitle{font-size:clamp(1.1rem,2vw,1.6rem);opacity:0.6;margin-top:1rem;font-weight:300}
+.cover .date{font-size:clamp(1rem,1.5vw,1.3rem);opacity:0.4;margin-top:2rem;letter-spacing:0.15em;text-transform:uppercase}
+
+/* 1: Hero/Cream */
+.s1{background:#faf5ef;color:#2d2a26}
+.s1 h2{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:900;line-height:1.08;letter-spacing:-0.02em;max-width:18ch}
+.s1 .lede{font-size:clamp(1.2rem,2vw,1.7rem);max-width:50ch;margin-top:2rem;line-height:1.6;font-weight:300}
+
+/* 2: Dark/Midnight */
+.s2{background:#0d0d1a;color:#e8e4f0}
+.s2 h2{font-size:clamp(2.2rem,5.5vw,5rem);font-weight:800;line-height:1.1;background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s2 .lede{font-size:clamp(1.1rem,1.8vw,1.5rem);max-width:55ch;margin-top:2rem;line-height:1.7;opacity:0.8}
+
+/* 3: Rose/Alert Stamp */
+.s3{background:#fff1f2;color:#4a1525}
+.s3::before{content:'OPEN SOURCE';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);font-family:'Fraunces',serif;font-size:clamp(5rem,15vw,14rem);font-weight:900;opacity:0.04;white-space:nowrap}
+.s3 h2{font-size:clamp(2.2rem,5vw,4.8rem);font-weight:900;line-height:1.1}
+.s3 .lede{font-size:clamp(1.1rem,1.8vw,1.5rem);max-width:50ch;margin-top:2rem;line-height:1.7}
+
+/* 4: Terminal/Green-on-Black */
+.s4{background:#0a0a0a;color:#22c55e;font-family:'Courier New',monospace}
+.s4 h2{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,4.5rem);font-weight:800;line-height:1.1;color:#4ade80}
+.s4 .lede{font-size:clamp(1rem,1.6vw,1.3rem);max-width:60ch;margin-top:2rem;line-height:1.8;opacity:0.85}
+.s4 .meta a{color:#4ade80}
+
+/* 5: Academic/Drop-Cap */
+.s5{background:#fefce8;color:#3f3520}
+.s5 h2{font-size:clamp(2rem,4.5vw,4.2rem);font-weight:800;line-height:1.12;font-style:italic}
+.s5 .lede{font-size:clamp(1.1rem,1.8vw,1.5rem);max-width:55ch;margin-top:2rem;line-height:1.8}
+.s5 .lede::first-letter{font-family:'Fraunces',serif;font-size:4em;float:left;line-height:0.8;margin-right:0.15em;margin-top:0.05em;font-weight:900;color:#b45309}
+
+/* 6: Indigo Gradient */
+.s6{background:linear-gradient(160deg,#312e81,#4338ca,#6366f1);color:#e0e7ff}
+.s6 h2{font-size:clamp(2.2rem,5vw,4.8rem);font-weight:900;line-height:1.08;color:#fff}
+.s6 .lede{font-size:clamp(1.1rem,1.8vw,1.5rem);max-width:50ch;margin-top:2rem;line-height:1.7;opacity:0.85}
+
+/* 7: Bold Black/White */
+.s7{background:#fff;color:#000}
+.s7 h2{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em}
+.s7 .lede{font-size:clamp(1.1rem,1.8vw,1.5rem);max-width:50ch;margin-top:2rem;line-height:1.7;border-left:4px solid #000;padding-left:1.5rem}
+
+/* 8: Warm Amber */
+.s8{background:linear-gradient(135deg,#451a03,#78350f,#92400e);color:#fef3c7}
+.s8 h2{font-size:clamp(2.2rem,5vw,4.8rem);font-weight:900;line-height:1.08;color:#fbbf24}
+.s8 .lede{font-size:clamp(1.1rem,1.8vw,1.5rem);max-width:50ch;margin-top:2rem;line-height:1.7;opacity:0.85}
+
+/* 9: Teal Science */
+.s9{background:#042f2e;color:#ccfbf1}
+.s9 h2{font-size:clamp(2.2rem,5vw,4.8rem);font-weight:900;line-height:1.08;color:#5eead4}
+.s9 .lede{font-size:clamp(1.1rem,1.8vw,1.5rem);max-width:55ch;margin-top:2rem;line-height:1.7;opacity:0.85}
+
+/* 10: Big Stat Finish */
+.s10{background:#111;color:#fff;text-align:center;align-items:center}
+.s10 .big-stat{font-family:'Fraunces',serif;font-size:clamp(5rem,14vw,12rem);font-weight:900;line-height:1;background:linear-gradient(90deg,#f472b6,#fb923c,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s10 h2{font-size:clamp(1.8rem,4vw,3.5rem);font-weight:700;line-height:1.15;margin-top:1.5rem;max-width:20ch}
+.s10 .lede{font-size:clamp(1rem,1.6vw,1.3rem);max-width:50ch;margin-top:1.5rem;line-height:1.7;opacity:0.7}
+
+@media(max-width:768px){
+  .spread{padding:clamp(1.5rem,4vw,3rem)}
+  .story-num{font-size:5rem;top:0.5rem;right:1rem}
+  .nav-dots{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-dots">
+  <a href="#cover" title="Cover"></a>
+  <a href="#s1" title="1"></a><a href="#s2" title="2"></a><a href="#s3" title="3"></a>
+  <a href="#s4" title="4"></a><a href="#s5" title="5"></a><a href="#s6" title="6"></a>
+  <a href="#s7" title="7"></a><a href="#s8" title="8"></a><a href="#s9" title="9"></a>
+  <a href="#s10" title="10"></a>
+</nav>
+
+<!-- COVER -->
+<section id="cover" class="spread cover">
+  <h1>Morning<br>Edition</h1>
+  <p class="subtitle">Your daily Hacker News digest, curated by Winston</p>
+  <p class="date">Sunday, April 19, 2026</p>
+</section>
+
+<!-- 1: Hero/Cream — DigitalOcean to Hetzner -->
+<section id="s1" class="spread s1">
+  <span class="story-num">01</span>
+  <h2>Migrating from DigitalOcean to Hetzner</h2>
+  <p class="lede">The hottest story on HN today: a detailed migration guide from DigitalOcean to Hetzner, sparking a massive discussion about cloud pricing, European hosting, and when it makes sense to switch providers. With 714 points and 368 comments, infrastructure choices are clearly top of mind.</p>
+  <p class="meta">▲ 714 · 💬 368 · <a href="https://isayeter.com/posts/digitalocean-to-hetzner-migration/" target="_blank">isayeter.com</a> · <a href="https://news.ycombinator.com/item?id=47815774" target="_blank">HN</a></p>
+</section>
+
+<!-- 2: Dark/Midnight — Opus Token Comparisons -->
+<section id="s2" class="spread s2">
+  <span class="story-num" style="color:#a78bfa;opacity:0.06">02</span>
+  <h2>Anonymous Request-Token Comparisons from Opus 4.6 and Opus 4.7</h2>
+  <p class="lede">A leaderboard comparing request tokens between Claude Opus 4.6 and 4.7 is lighting up the comments with 476 responses. The community is dissecting inference costs, token efficiency, and what it means for the next wave of AI pricing models.</p>
+  <p class="meta">▲ 464 · 💬 476 · <a href="https://tokens.billchambers.me/leaderboard" target="_blank">tokens.billchambers.me</a> · <a href="https://news.ycombinator.com/item?id=47816960" target="_blank">HN</a></p>
+</section>
+
+<!-- 3: Rose/Alert Stamp — Kdenlive -->
+<section id="s3" class="spread s3">
+  <span class="story-num">03</span>
+  <h2>State of Kdenlive 2026</h2>
+  <p class="lede">The open-source video editor publishes its annual state of the project — covering new features, performance wins, and the challenge of sustaining a complex media app with community contributions. A reminder that great OSS video tools exist beyond the Adobe empire.</p>
+  <p class="meta">▲ 357 · 💬 116 · <a href="https://kdenlive.org/news/2026/state-2026/" target="_blank">kdenlive.org</a> · <a href="https://news.ycombinator.com/item?id=47815118" target="_blank">HN</a></p>
+</section>
+
+<!-- 4: Terminal/Green — Claude Design -->
+<section id="s4" class="spread s4">
+  <span class="story-num" style="color:#22c55e;opacity:0.06">04</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h2>Thoughts and Feelings Around Claude Design</h2>
+  <p class="lede">$ cat thoughts.md<br><br>A deep reflection on how Anthropic's Claude Design shapes the way AI products feel — not just function. With 264 points and 173 comments, designers and builders are debating what "good AI UX" actually means. Directly relevant to how Whisperit designs its AI experience for lawyers.</p>
+  <p class="meta">▲ 264 · 💬 173 · <a href="https://samhenri.gold/blog/20260418-claude-design/" target="_blank">samhenri.gold</a> · <a href="https://news.ycombinator.com/item?id=47818700" target="_blank">HN</a></p>
+</section>
+
+<!-- 5: Academic/Drop-Cap — Any Wavelength Lasers -->
+<section id="s5" class="spread s5">
+  <span class="story-num">05</span>
+  <h2>NIST Scientists Create 'Any Wavelength' Lasers on Tiny Circuits</h2>
+  <p class="lede">Researchers at NIST have achieved what sounds like science fiction: programmable lasers that can emit any color of light from miniature circuits. The implications span from telecommunications to medical imaging to quantum computing. It's one of those papers that makes you think the future just got a lot more colorful.</p>
+  <p class="meta">▲ 224 · 💬 99 · <a href="https://www.nist.gov/news-events/news/2026/04/any-color-you-nist-scientists-create-any-wavelength-lasers-tiny-circuits" target="_blank">nist.gov</a> · <a href="https://news.ycombinator.com/item?id=47819453" target="_blank">HN</a></p>
+</section>
+
+<!-- 6: Indigo Gradient — Typewriters vs AI -->
+<section id="s6" class="spread s6">
+  <span class="story-num" style="color:#fff;opacity:0.05">06</span>
+  <h2>College Instructor Turns to Typewriters to Curb AI-Written Work</h2>
+  <p class="lede">In perhaps the most beautifully ironic response to the AI revolution: a professor is making students use typewriters. No backspace, no autocomplete, definitely no ChatGPT. The 185-comment thread is a fascinating debate about education, authenticity, and whether this is brilliance or Luddism.</p>
+  <p class="meta">▲ 202 · 💬 185 · <a href="https://sentinelcolorado.com/uncategorized/a-college-instructor-turns-to-typewriters-to-curb-ai-written-work-and-teach-life-lessons/" target="_blank">sentinelcolorado.com</a> · <a href="https://news.ycombinator.com/item?id=47818485" target="_blank">HN</a></p>
+</section>
+
+<!-- 7: Bold Black/White — Penguin Drama -->
+<section id="s7" class="spread s7">
+  <span class="story-num">07</span>
+  <h2>Sumida Aquarium Posts 2026 Penguin Relationship Chart, with Drama and Breakups</h2>
+  <p class="lede">Every year, Tokyo's Sumida Aquarium publishes a relationship chart of its penguin colony — complete with love triangles, breakups, and new couples. It's the soap opera you didn't know you needed. This year's edition does not disappoint.</p>
+  <p class="meta">▲ 188 · 💬 7 · <a href="https://www.sumida-aquarium.com/special/sokanzu/en/2026/" target="_blank">sumida-aquarium.com</a> · <a href="https://news.ycombinator.com/item?id=47784395" target="_blank">HN</a></p>
+</section>
+
+<!-- 8: Warm Amber — Voyager 1 -->
+<section id="s8" class="spread s8">
+  <span class="story-num" style="color:#fbbf24;opacity:0.06">08</span>
+  <h2>NASA Shuts Off Instrument on Voyager 1 to Keep Spacecraft Operating</h2>
+  <p class="lede">Voyager 1 — humanity's most distant ambassador, now over 15 billion miles from home — loses another instrument as NASA makes the hard call to conserve power. Every shutdown is a small death of capability, but the spacecraft endures. Launched in 1977, still phoning home in 2026.</p>
+  <p class="meta">▲ 117 · 💬 49 · <a href="https://science.nasa.gov/blogs/voyager/2026/04/17/nasa-shuts-off-instrument-on-voyager-1-to-keep-spacecraft-operating/" target="_blank">nasa.gov</a> · <a href="https://news.ycombinator.com/item?id=47820531" target="_blank">HN</a></p>
+</section>
+
+<!-- 9: Teal Science — MDV -->
+<section id="s9" class="spread s9">
+  <span class="story-num" style="color:#5eead4;opacity:0.06">09</span>
+  <h2>Show HN: MDV — A Markdown Superset for Docs, Dashboards, and Slides</h2>
+  <p class="lede">MDV extends Markdown with first-class support for data visualization, dashboards, and slide decks — all in plain text. Think of it as Markdown meets Observable. For anyone tired of juggling separate tools for docs and presentations, this could be a game-changer.</p>
+  <p class="meta">▲ 102 · 💬 37 · <a href="https://github.com/drasimwagan/mdv" target="_blank">github.com</a> · <a href="https://news.ycombinator.com/item?id=47816629" target="_blank">HN</a></p>
+</section>
+
+<!-- 10: Big Stat Finish — Zero-Copy GPU Inference -->
+<section id="s10" class="spread s10">
+  <span class="story-num" style="opacity:0.03">10</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <div class="big-stat">0 copy</div>
+  <h2>Zero-Copy GPU Inference from WebAssembly on Apple Silicon</h2>
+  <p class="lede">Eliminating memory copies between WebAssembly and Apple's Metal GPU — a breakthrough for running AI inference locally on Macs with maximum efficiency. If Whisperit ever goes local-first for speech processing, this is the kind of plumbing that makes it possible.</p>
+  <p class="meta">▲ 54 · 💬 19 · <a href="https://abacusnoir.com/2026/04/18/zero-copy-gpu-inference-from-webassembly-on-apple-silicon/" target="_blank">abacusnoir.com</a> · <a href="https://news.ycombinator.com/item?id=47820195" target="_blank">HN</a></p>
+</section>
+
+<script>
+// Nav dots active state
+const dots = document.querySelectorAll('.nav-dots a');
+const sections = document.querySelectorAll('.spread');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      dots.forEach(d => d.classList.remove('active'));
+      const idx = [...sections].indexOf(e.target);
+      if (dots[idx]) dots[idx].classList.add('active');
+    }
+  });
+}, { threshold: 0.5 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
