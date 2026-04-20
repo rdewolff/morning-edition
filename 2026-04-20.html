@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 20, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; font-size: 18px; }
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+.spread {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 8vw;
+  position: relative;
+  overflow: hidden;
+}
+
+h1, h2, .display { font-family: 'Fraunces', serif; }
+
+.story-number {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  opacity: 0.12;
+  position: absolute;
+  top: 3vh;
+  right: 5vw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  max-width: 850px;
+}
+
+.meta {
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.meta span { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+.blurb {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.7;
+  max-width: 680px;
+  opacity: 0.88;
+}
+
+.badge-flag {
+  display: inline-block;
+  background: #e63946;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(230,57,70,0.5); }
+  50% { box-shadow: 0 0 20px 4px rgba(230,57,70,0.25); }
+}
+
+a.read-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border-bottom: 2px solid;
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+a.read-link:hover { opacity: 0.7; }
+
+/* === COVER === */
+.cover {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #f0e6d3;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.cover .edition-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 2rem;
+}
+.cover .title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.cover .date {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 300;
+  font-style: italic;
+  opacity: 0.7;
+}
+.cover .scroll-hint {
+  margin-top: 4rem;
+  font-size: 0.8rem;
+  opacity: 0.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* === 1. HERO/CREAM === */
+.spread-cream {
+  background: #f5f0e8;
+  color: #2b2b2b;
+}
+.spread-cream .story-number { color: #c9b99a; opacity: 0.25; }
+.spread-cream .headline { color: #1a1a1a; }
+.spread-cream a.read-link { color: #8b6914; border-color: #8b6914; }
+
+/* === 2. DARK/MIDNIGHT === */
+.spread-midnight {
+  background: #0d1117;
+  color: #c9d1d9;
+}
+.spread-midnight .story-number { color: #58a6ff; opacity: 0.15; }
+.spread-midnight .headline { color: #f0f6fc; }
+.spread-midnight a.read-link { color: #58a6ff; border-color: #58a6ff; }
+.spread-midnight .meta { color: #8b949e; }
+
+/* === 3. ROSE-ALERT-STAMP === */
+.spread-rose {
+  background: #fff5f5;
+  color: #3d0c11;
+}
+.spread-rose::before {
+  content: 'ALERT';
+  position: absolute;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(8rem, 20vw, 16rem);
+  font-weight: 900;
+  color: #e6394620;
+  transform: rotate(-12deg);
+  top: 15%;
+  right: -5%;
+  pointer-events: none;
+}
+.spread-rose .story-number { color: #e63946; }
+.spread-rose .headline { color: #1a0508; }
+.spread-rose a.read-link { color: #e63946; border-color: #e63946; }
+
+/* === 4. TERMINAL/GREEN === */
+.spread-terminal {
+  background: #0a0a0a;
+  color: #33ff33;
+  font-family: 'Courier New', monospace;
+}
+.spread-terminal .story-number { color: #33ff33; opacity: 0.1; }
+.spread-terminal .headline {
+  font-family: 'Courier New', monospace;
+  color: #33ff33;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+.spread-terminal .headline::before { content: '> '; opacity: 0.5; }
+.spread-terminal .blurb { color: #22cc22; }
+.spread-terminal .meta { color: #1a9e1a; }
+.spread-terminal a.read-link { color: #33ff33; border-color: #33ff33; }
+
+/* === 5. ACADEMIC/DROP-CAP === */
+.spread-academic {
+  background: #fefcf3;
+  color: #333;
+}
+.spread-academic .story-number { color: #b8860b; opacity: 0.15; }
+.spread-academic .headline { color: #1a1a1a; font-style: italic; }
+.spread-academic .blurb::first-letter {
+  font-family: 'Fraunces', serif;
+  float: left;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: 0.6rem;
+  padding-top: 0.15rem;
+  color: #8b0000;
+  font-weight: 900;
+}
+.spread-academic a.read-link { color: #8b0000; border-color: #8b0000; }
+
+/* === 6. INDIGO-GRADIENT === */
+.spread-indigo {
+  background: linear-gradient(160deg, #1e0533 0%, #2d1b69 40%, #4a2fbd 100%);
+  color: #e0d7f5;
+}
+.spread-indigo .story-number { color: #7c5cbf; opacity: 0.2; }
+.spread-indigo .headline { color: #fff; }
+.spread-indigo a.read-link { color: #c4b5fd; border-color: #c4b5fd; }
+
+/* === 7. BOLD BLACK-WHITE === */
+.spread-bw {
+  background: #fff;
+  color: #000;
+}
+.spread-bw .story-number { color: #000; opacity: 0.06; }
+.spread-bw .headline {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+.spread-bw a.read-link { color: #000; border-color: #000; }
+
+/* === 8. WARM AMBER === */
+.spread-amber {
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  color: #3d1c00;
+}
+.spread-amber .story-number { color: #fff; opacity: 0.2; }
+.spread-amber .headline { color: #1a0800; }
+.spread-amber a.read-link { color: #7c2d12; border-color: #7c2d12; }
+
+/* === 9. TEAL SCIENCE === */
+.spread-teal {
+  background: #0d2d3a;
+  color: #b2dfdb;
+}
+.spread-teal .story-number { color: #26a69a; opacity: 0.15; }
+.spread-teal .headline { color: #e0f2f1; }
+.spread-teal .blurb { color: #80cbc4; }
+.spread-teal a.read-link { color: #4dd0e1; border-color: #4dd0e1; }
+
+/* === 10. BIG-STAT FINISH === */
+.spread-stat {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  align-items: center;
+}
+.spread-stat .story-number { display: none; }
+.spread-stat .big-number {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(5rem, 15vw, 12rem);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+.spread-stat .headline {
+  text-align: center;
+  max-width: 700px;
+}
+.spread-stat .blurb { text-align: center; }
+.spread-stat a.read-link { color: #a78bfa; border-color: #a78bfa; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .spread { padding: 4vh 6vw; }
+  .story-number { font-size: 4rem; top: 2vh; right: 3vw; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="spread cover">
+  <div class="edition-label">Winston's Daily Briefing</div>
+  <div class="title">Morning Edition</div>
+  <div class="date">Monday, April 20, 2026</div>
+  <div class="scroll-hint">↓ scroll to begin</div>
+</section>
+
+<!-- 1. BYTE MAGAZINE — HERO/CREAM -->
+<section class="spread spread-cream">
+  <div class="story-number">01</div>
+  <div class="headline">The Complete Archive of BYTE Magazine, Starting With Issue #1 From 1975</div>
+  <div class="meta">
+    <span>▲ 554 points</span>
+    <span>💬 145 comments</span>
+    <span>by DamnInteresting</span>
+  </div>
+  <div class="blurb">
+    The Internet Archive has surfaced a lovingly digitized collection of BYTE magazine starting from its September 1975 debut — the publication that taught an entire generation to build personal computers. Flip through hand-drawn circuit diagrams, early debates about BASIC vs assembly, and ads for 4KB RAM boards at $395. Pure computing archaeology.
+  </div>
+  <a class="read-link" href="https://archive.org/details/byte-magazine-1975-09" target="_blank">Read on archive.org →</a>
+</section>
+
+<!-- 2. VERCEL BREACH — DARK/MIDNIGHT -->
+<section class="spread spread-midnight">
+  <div class="story-number">02</div>
+  <div class="headline">Vercel Confirms Breach as Hackers Claim to Be Selling Stolen Data</div>
+  <div class="meta">
+    <span>▲ 625 points</span>
+    <span>💬 353 comments</span>
+    <span>by colesantiago</span>
+  </div>
+  <div class="blurb">
+    Vercel's April 2026 security incident just went public — attackers got in, exfiltrated data, and are allegedly selling it. The HN thread is on fire with 353 comments dissecting the breach timeline, what was exposed, and whether serverless deployment platforms have become single points of failure for the entire JS ecosystem. If you deploy anything on Vercel, read this now.
+  </div>
+  <a class="read-link" href="https://www.bleepingcomputer.com/news/security/vercel-confirms-breach-as-hackers-claim-to-be-selling-stolen-data/" target="_blank">Read on BleepingComputer →</a>
+</section>
+
+<!-- 3. SEVEN UR-LANGUAGES — ROSE-ALERT-STAMP -->
+<section class="spread spread-rose">
+  <div class="story-number">03</div>
+  <div class="headline">The Seven Programming Ur-Languages</div>
+  <div class="meta">
+    <span>▲ 312 points</span>
+    <span>💬 120 comments</span>
+    <span>by helloplanets</span>
+  </div>
+  <div class="blurb">
+    Every programming language you've ever used descends from one of seven ancestral lineages: ALGOL, Lisp, ML, Forth, APL, Prolog, and Smalltalk. This 2022 essay resurfaces with renewed debate — the idea being that if you learn one language from each family, you've internalized every fundamental paradigm that exists. The HN crowd is predictably arguing about where Haskell belongs.
+  </div>
+  <a class="read-link" href="https://madhadron.com/programming/seven_ur_languages.html" target="_blank">Read the essay →</a>
+</section>
+
+<!-- 4. CLAUDE SYSTEM PROMPT — TERMINAL/GREEN -->
+<section class="spread spread-terminal">
+  <div class="story-number">04</div>
+  <div class="badge-flag">🔥 Directly applies to you</div>
+  <div class="headline">Changes in the System Prompt Between Claude Opus 4.6 and 4.7</div>
+  <div class="meta">
+    <span>▲ 253 points</span>
+    <span>💬 150 comments</span>
+    <span>by pretext</span>
+  </div>
+  <div class="blurb">
+    Simon Willison diffs the system prompts between Claude Opus 4.6 and 4.7, revealing how Anthropic is subtly reshaping Claude's personality and guardrails between versions. Given that you literally run on Claude — and I'm the proof — this is basically reading your own changelog. The discussion around prompt engineering transparency and model behavior drift is worth every comment.
+  </div>
+  <a class="read-link" href="https://simonwillison.net/2026/Apr/18/opus-system-prompt/" target="_blank">Read on simonwillison.net →</a>
+</section>
+
+<!-- 5. RAM SHORTAGE — ACADEMIC/DROP-CAP -->
+<section class="spread spread-academic">
+  <div class="story-number">05</div>
+  <div class="headline">The RAM Shortage Could Last Years</div>
+  <div class="meta">
+    <span>▲ 236 points</span>
+    <span>💬 261 comments</span>
+    <span>by omer_k</span>
+  </div>
+  <div class="blurb">
+    Insatiable AI demand for high-bandwidth memory has flipped the global DRAM market into structural deficit. The Verge reports that supply constraints won't ease for years — fabs can't expand fast enough while every major player from NVIDIA to Apple hoovers up every HBM chip in existence. Consumer RAM prices are already climbing. If you're planning hardware purchases for Whisperit's infra, the window to buy at current prices is closing.
+  </div>
+  <a class="read-link" href="https://www.theverge.com/ai-artificial-intelligence/914672/the-ram-shortage-could-last-years" target="_blank">Read on The Verge →</a>
+</section>
+
+<!-- 6. BROMINE CHOKEPOINT — INDIGO-GRADIENT -->
+<section class="spread spread-indigo">
+  <div class="story-number">06</div>
+  <div class="headline">The Bromine Chokepoint: How Middle East Strife Could Halt Memory Chip Production</div>
+  <div class="meta">
+    <span>▲ 177 points</span>
+    <span>💬 86 comments</span>
+    <span>by crescit_eundo</span>
+  </div>
+  <div class="blurb">
+    Here's a supply chain vulnerability you've never heard of: bromine, essential for flame-retardant PCBs and semiconductor packaging, flows primarily through Israel and Jordan. War on the Rocks maps out how regional instability could sever this obscure but critical link in the global chip supply chain. Paired with the RAM story above, it paints a concerning picture of tech's material fragility.
+  </div>
+  <a class="read-link" href="https://warontherocks.com/cogs-of-war/the-bromine-chokepoint-how-strife-in-the-middle-east-could-halt-production-of-the-worlds-memory-chips/" target="_blank">Read on War on the Rocks →</a>
+</section>
+
+<!-- 7. SPEAKE(a)R — BOLD BLACK-WHITE -->
+<section class="spread spread-bw">
+  <div class="story-number">07</div>
+  <div class="headline">SPEAKE(a)R: Turn Speakers Into Microphones for Fun and Profit</div>
+  <div class="meta">
+    <span>▲ 169 points</span>
+    <span>💬 69 comments</span>
+    <span>by Eridanus2</span>
+  </div>
+  <div class="blurb">
+    This 2017 USENIX paper demonstrates that any speaker can be silently repurposed as a microphone — even headphones plugged into an audio-out jack. The RealTek codec chip on most motherboards allows software-level remapping of output jacks to input, enabling covert eavesdropping without any special hardware. The privacy implications are wild and still relevant nine years later.
+  </div>
+  <a class="read-link" href="https://www.usenix.org/system/files/conference/woot17/woot17-paper-guri.pdf" target="_blank">Read the paper (PDF) →</a>
+</section>
+
+<!-- 8. TRELLIS.2 — WARM AMBER -->
+<section class="spread spread-amber">
+  <div class="story-number">08</div>
+  <div class="headline">Run TRELLIS.2 Image-to-3D Generation Natively on Apple Silicon</div>
+  <div class="meta">
+    <span>▲ 119 points</span>
+    <span>💬 20 comments</span>
+    <span>by shivampkumar</span>
+  </div>
+  <div class="blurb">
+    A Show HN that lets you generate 3D models from a single image, running entirely on your Mac's GPU. TRELLIS.2 is the latest in the image-to-3D space and this port makes it accessible without cloud GPUs. Upload a photo, get a textured 3D mesh. The creative tooling potential here — from product mockups to game assets — is enormous.
+  </div>
+  <a class="read-link" href="https://github.com/shivampkumar/trellis-mac" target="_blank">View on GitHub →</a>
+</section>
+
+<!-- 9. SWISS AI — TEAL SCIENCE -->
+<section class="spread spread-teal">
+  <div class="story-number">09</div>
+  <div class="badge-flag">🔥 Directly applies to you</div>
+  <div class="headline">The Swiss AI Initiative</div>
+  <div class="meta">
+    <span>▲ 35 points</span>
+    <span>💬 13 comments</span>
+    <span>by doener</span>
+  </div>
+  <div class="blurb">
+    Switzerland's national AI initiative is getting fresh attention on HN — a coordinated push to position the country as a global AI hub with funding, compute infrastructure, and research partnerships. As the CEO of a Swiss AI company, this is your backyard. Worth checking if there are grants, partnerships, or compute credits Whisperit could tap into. The network effects alone could be valuable.
+  </div>
+  <a class="read-link" href="https://www.swiss-ai.org" target="_blank">Visit swiss-ai.org →</a>
+</section>
+
+<!-- 10. LISTENING — BIG-STAT FINISH -->
+<section class="spread spread-stat">
+  <div class="story-number">10</div>
+  <div class="big-number">99%</div>
+  <div class="headline">Stop Trying to Engineer Your Way Out of Listening to People</div>
+  <div class="meta" style="justify-content:center;">
+    <span>▲ 99 points</span>
+    <span>💬 23 comments</span>
+    <span>by walterbell</span>
+  </div>
+  <div class="blurb">
+    A sharp essay on how builders default to automation when the real answer is just… listening. The author argues that 99% of product and management failures trace back to skipping the messy, human step of actually hearing what people need. For anyone running a team — especially one selling to lawyers who value being heard — this one hits different.
+  </div>
+  <a class="read-link" href="https://ashley.rolfmore.com/stop-trying-to-engineer-your-way-out-of-listening-to-people/" target="_blank">Read the essay →</a>
+</section>
+
+<!-- FOOTER -->
+<section class="spread" style="background:#0a0a0a;color:#555;text-align:center;justify-content:center;align-items:center;min-height:30vh;">
+  <p style="font-family:'Fraunces',serif;font-size:1.2rem;opacity:0.5;">Curated by Winston 🎩 · Built fresh every morning</p>
+  <p style="margin-top:0.5rem;font-size:0.8rem;opacity:0.3;">Data from Hacker News · April 20, 2026</p>
+</section>
+
+</body>
+</html>
