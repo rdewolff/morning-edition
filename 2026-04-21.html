@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 21, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.spread { min-height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
+@media (min-width: 768px) { .spread { padding: 4rem 6rem; } }
+@media (min-width: 1200px) { .spread { padding: 5rem 10rem; } }
+h1, h2, .display { font-family: 'Fraunces', serif; }
+.meta { font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.7; margin-bottom: 1rem; }
+.story-link { display: inline-block; margin-top: 1.5rem; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em; text-transform: uppercase; text-decoration: none; padding: 0.6rem 1.4rem; border-radius: 2rem; transition: all 0.2s; }
+.stats { font-size: 0.95rem; margin-top: 1rem; opacity: 0.75; }
+.badge { display: inline-block; background: #e63946; color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: 2rem; margin-bottom: 1rem; letter-spacing: 0.03em; }
+.story-num { font-family: 'Fraunces', serif; font-size: 8rem; font-weight: 900; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; line-height: 1; }
+@media (min-width: 768px) { .story-num { font-size: 14rem; top: 0.5rem; right: 3rem; } }
+
+/* Cover */
+.cover { background: linear-gradient(135deg, #0a0a0a, #1a1a2e); color: #f5f5f0; text-align: center; }
+.cover h1 { font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; line-height: 1.05; margin-bottom: 1rem; }
+.cover .date { font-size: 1.1rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5; }
+.cover .tagline { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; opacity: 0.6; margin-top: 2rem; }
+
+/* 1. Hero/Cream */
+.s-cream { background: #fdf6e3; color: #2c2c2c; }
+.s-cream h2 { font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+.s-cream .story-link { background: #2c2c2c; color: #fdf6e3; }
+.s-cream .story-link:hover { background: #555; }
+
+/* 2. Dark/Midnight */
+.s-dark { background: #0d1117; color: #c9d1d9; }
+.s-dark h2 { font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.1; color: #58a6ff; margin-bottom: 1rem; }
+.s-dark .story-link { border: 2px solid #58a6ff; color: #58a6ff; }
+.s-dark .story-link:hover { background: #58a6ff; color: #0d1117; }
+
+/* 3. Rose Alert */
+.s-rose { background: #fff0f0; color: #3d0000; }
+.s-rose h2 { font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.1; color: #c1121f; margin-bottom: 1rem; }
+.s-rose::after { content: 'ALERT'; position: absolute; bottom: 2rem; right: 2rem; font-family: 'Fraunces', serif; font-size: 6rem; font-weight: 900; color: #c1121f; opacity: 0.06; transform: rotate(-12deg); }
+.s-rose .story-link { background: #c1121f; color: #fff; }
+.s-rose .story-link:hover { background: #a00; }
+
+/* 4. Terminal */
+.s-terminal { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; }
+.s-terminal h2 { font-family: 'Courier New', monospace; font-size: clamp(1.6rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+.s-terminal h2::before { content: '> '; opacity: 0.5; }
+.s-terminal .story-link { border: 2px solid #00ff41; color: #00ff41; }
+.s-terminal .story-link:hover { background: #00ff41; color: #0a0a0a; }
+.s-terminal .meta, .s-terminal .stats { font-family: 'Courier New', monospace; }
+
+/* 5. Academic Drop Cap */
+.s-academic { background: #f8f4ef; color: #333; }
+.s-academic h2 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; color: #1a1a1a; }
+.s-academic .dropcap { font-family: 'Fraunces', serif; font-size: 6rem; font-weight: 900; float: left; line-height: 0.8; margin-right: 0.5rem; color: #8b4513; }
+.s-academic .story-link { background: #8b4513; color: #fff; }
+.s-academic .story-link:hover { background: #6b3410; }
+
+/* 6. Indigo Gradient */
+.s-indigo { background: linear-gradient(160deg, #1e1b4b, #312e81, #4338ca); color: #e0e7ff; }
+.s-indigo h2 { font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 1rem; }
+.s-indigo .story-link { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); }
+.s-indigo .story-link:hover { background: rgba(255,255,255,0.25); }
+
+/* 7. Bold B&W */
+.s-bw { background: #fff; color: #000; }
+.s-bw h2 { font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 900; line-height: 1.05; margin-bottom: 1rem; text-transform: uppercase; }
+.s-bw .story-link { background: #000; color: #fff; }
+.s-bw .story-link:hover { background: #333; }
+
+/* 8. Warm Amber */
+.s-amber { background: #451a03; color: #fef3c7; }
+.s-amber h2 { font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.1; color: #fbbf24; margin-bottom: 1rem; }
+.s-amber .story-link { background: #fbbf24; color: #451a03; }
+.s-amber .story-link:hover { background: #f59e0b; }
+
+/* 9. Teal Science */
+.s-teal { background: #042f2e; color: #ccfbf1; }
+.s-teal h2 { font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.1; color: #2dd4bf; margin-bottom: 1rem; }
+.s-teal .story-link { border: 2px solid #2dd4bf; color: #2dd4bf; }
+.s-teal .story-link:hover { background: #2dd4bf; color: #042f2e; }
+
+/* 10. Big Stat Finish */
+.s-stat { background: #18181b; color: #fafafa; text-align: center; }
+.s-stat .big-num { font-family: 'Fraunces', serif; font-size: clamp(5rem, 15vw, 12rem); font-weight: 900; line-height: 1; color: #f472b6; margin-bottom: 1rem; }
+.s-stat h2 { font-size: clamp(1.8rem, 4vw, 3.5rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+.s-stat .story-link { background: #f472b6; color: #18181b; }
+.s-stat .story-link:hover { background: #ec4899; }
+
+/* Colophon */
+.colophon { background: #fafafa; color: #999; text-align: center; min-height: 30vh; font-size: 0.85rem; }
+.colophon a { color: #666; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="spread cover">
+  <div>
+    <p class="date">Tuesday, April 21, 2026</p>
+    <h1>Morning<br>Edition</h1>
+    <p class="tagline">10 stories worth your morning coffee ☕</p>
+  </div>
+</section>
+
+<!-- 1. Hero/Cream — Apple CEO -->
+<section class="spread s-cream">
+  <span class="story-num">01</span>
+  <div>
+    <p class="meta">Apple · 1,457 points · 735 comments</p>
+    <h2>John Ternus to Become Apple CEO as Tim Cook Moves to Executive Chairman</h2>
+    <p style="font-size:1.15rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#555;">
+      The biggest succession event in tech since… well, the last time Apple did it. Tim Cook steps up to Executive Chairman, handing the CEO reins to hardware chief John Ternus. A signal that Apple's next chapter is about the physical layer — devices, chips, spatial computing.
+    </p>
+    <p class="stats">📊 1,457 pts · 💬 735 comments · by schappim</p>
+    <a class="story-link" href="https://www.apple.com/newsroom/2026/04/tim-cook-to-become-apple-executive-chairman-john-ternus-to-become-apple-ceo/" target="_blank">Read at Apple Newsroom →</a>
+  </div>
+</section>
+
+<!-- 2. Dark/Midnight — Qwen3.6 -->
+<section class="spread s-dark">
+  <span class="story-num" style="color:#58a6ff;">02</span>
+  <div>
+    <span class="badge">🔥 Directly applies to you</span>
+    <p class="meta">AI · 578 points · 304 comments</p>
+    <h2>Qwen3.6-Max-Preview: Smarter, Sharper, Still Evolving</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#8b949e;">
+      Alibaba's Qwen drops a new flagship preview. Benchmarks look strong across reasoning and coding. Worth evaluating for Whisperit's inference pipeline — especially if you're looking at cost-efficient alternatives to the usual suspects.
+    </p>
+    <p class="stats">📊 578 pts · 💬 304 comments · by mfiguiere</p>
+    <a class="story-link" href="https://qwen.ai/blog?id=qwen3.6-max-preview" target="_blank">Read at Qwen →</a>
+  </div>
+</section>
+
+<!-- 3. Rose Alert — Atlassian AI data collection -->
+<section class="spread s-rose">
+  <span class="story-num" style="color:#c1121f;">03</span>
+  <div>
+    <span class="badge">🔥 Directly applies to you</span>
+    <p class="meta">Privacy + AI · 533 points · 123 comments</p>
+    <h2>Atlassian Quietly Enables Default Data Collection to Train AI</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#5c0000;">
+      Atlassian flipped the switch — your Jira and Confluence data now feeds their AI by default. Opt-out, not opt-in. If Whisperit uses any Atlassian products, check your settings today. Also a cautionary tale for how <em>not</em> to handle AI training data from a trust perspective.
+    </p>
+    <p class="stats">📊 533 pts · 💬 123 comments · by kevcampb</p>
+    <a class="story-link" href="https://letsdatascience.com/news/atlassian-enables-default-data-collection-to-train-ai-f71343d8" target="_blank">Read Story →</a>
+  </div>
+</section>
+
+<!-- 4. Terminal — ggsql -->
+<section class="spread s-terminal">
+  <span class="story-num" style="color:#00ff41;">04</span>
+  <div>
+    <p class="meta" style="color:#00ff41;">Dev Tools · 381 points · 76 comments</p>
+    <h2>ggsql: A Grammar of Graphics for SQL</h2>
+    <p style="font-size:1.05rem; line-height:1.7; max-width:680px; margin-top:1rem;">
+      Posit (the R/RStudio folks) releases an alpha of ggsql — bringing ggplot2's grammar of graphics to SQL queries. Write SQL, get beautiful plots. If you've ever hacked together a dashboard from raw queries, this is the tool you wished existed.
+    </p>
+    <p class="stats">📊 381 pts · 💬 76 comments · by thomasp85</p>
+    <a class="story-link" href="https://opensource.posit.co/blog/2026-04-20_ggsql_alpha_release/" target="_blank">cat README.md →</a>
+  </div>
+</section>
+
+<!-- 5. Academic — EU Replaceable Batteries -->
+<section class="spread s-academic">
+  <span class="story-num">05</span>
+  <div>
+    <p class="meta">EU Policy · 1,082 points · 893 comments</p>
+    <h2><span class="dropcap">A</span>ll Phones Sold in the EU Must Have Replaceable Batteries from 2027</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#555;">
+      The EU just passed the rule: starting 2027, every phone and tablet sold in Europe needs a user-replaceable battery. Enormous implications for device design. Apple and Samsung are already scrambling. Living in Switzerland, you'll see this reshape the devices on every shelf near you.
+    </p>
+    <p class="stats">📊 1,082 pts · 💬 893 comments · by ramonga</p>
+    <a class="story-link" href="https://www.theolivepress.es/spain-news/2026/04/20/eu-to-force-replaceable-batteries-in-phones-and-tablets-from-2027/" target="_blank">Read Story →</a>
+  </div>
+</section>
+
+<!-- 6. Indigo — OpenAI Ad Placements -->
+<section class="spread s-indigo">
+  <span class="story-num" style="color:rgba(255,255,255,0.08);">06</span>
+  <div>
+    <span class="badge">🔥 Directly applies to you</span>
+    <p class="meta">AI Business · 226 points · 107 comments</p>
+    <h2>OpenAI's Ad Partner Now Selling ChatGPT Placements Based on "Prompt Relevance"</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#c7d2fe;">
+      A leaked deck from StackAdapt reveals how ChatGPT ads will work: targeting based on what users ask. This is the beginning of the AI search ads era. For Whisperit, this opens a new channel — and raises questions about where AI assistants sit in the trust equation.
+    </p>
+    <p class="stats">📊 226 pts · 💬 107 comments · by jlark77777</p>
+    <a class="story-link" href="https://www.adweek.com/media/exclusive-leaked-deck-reveals-stackadapts-playbook-for-chatgpt-ads/" target="_blank">Read at Adweek →</a>
+  </div>
+</section>
+
+<!-- 7. Bold B&W — Kimi Vendor Verifier -->
+<section class="spread s-bw">
+  <span class="story-num">07</span>
+  <div>
+    <p class="meta">AI Infrastructure · 204 points · 17 comments</p>
+    <h2>Kimi Vendor Verifier — Verify Accuracy of Inference Providers</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#444;">
+      Moonshot AI releases a tool to verify whether your inference provider is actually running the model they claim. Catches quantization downgrades, model swaps, and other silent degradations. Essential due diligence for anyone relying on third-party inference.
+    </p>
+    <p class="stats">📊 204 pts · 💬 17 comments · by Alifatisk</p>
+    <a class="story-link" href="https://www.kimi.com/blog/kimi-vendor-verifier" target="_blank">Read Story →</a>
+  </div>
+</section>
+
+<!-- 8. Warm Amber — Brussels Age Checking App -->
+<section class="spread s-amber">
+  <span class="story-num" style="color:#fbbf24;">08</span>
+  <div>
+    <p class="meta">Security · 177 points · 78 comments</p>
+    <h2>Brussels Launched an Age-Checking App. Hackers Broke It in 2 Minutes.</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#fef3c7;">
+      The EU's new identity verification app for age checks got demolished at a security conference. Client-side validation, no server checks. A masterclass in what happens when policy moves faster than engineering. The privacy and security implications are staggering.
+    </p>
+    <p class="stats">📊 177 pts · 💬 78 comments · by axbyte</p>
+    <a class="story-link" href="https://www.politico.eu/article/eu-brussels-launched-age-checking-app-hackers-say-took-them-2-minutes-break-it/" target="_blank">Read at Politico →</a>
+  </div>
+</section>
+
+<!-- 9. Teal Science — Ternary Bonsai -->
+<section class="spread s-teal">
+  <span class="story-num" style="color:#2dd4bf;">09</span>
+  <div>
+    <p class="meta">AI Research · 105 points · 21 comments</p>
+    <h2>Ternary Bonsai: Top Intelligence at 1.58 Bits Per Weight</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin-top:1rem; color:#99f6e4;">
+      PrismML demonstrates a ternary quantization scheme that maintains frontier-level performance at just 1.58 bits per parameter. The implications for edge deployment are wild — imagine running a capable model on a phone with a fraction of the memory. Keep an eye on this for Whisperit's mobile story.
+    </p>
+    <p class="stats">📊 105 pts · 💬 21 comments · by nnx</p>
+    <a class="story-link" href="https://prismml.com/news/ternary-bonsai" target="_blank">Read Story →</a>
+  </div>
+</section>
+
+<!-- 10. Big Stat Finish — Deezer AI-generated songs -->
+<section class="spread s-stat">
+  <span class="story-num" style="color:#f472b6;">10</span>
+  <div>
+    <div class="big-num">44%</div>
+    <p class="meta">AI + Music · 329 points · 316 comments</p>
+    <h2>Deezer Says 44% of Songs Uploaded Daily Are Now AI-Generated</h2>
+    <p style="font-size:1.1rem; line-height:1.7; max-width:680px; margin: 1rem auto 0; color:#a1a1aa;">
+      Nearly half of all new uploads to Deezer are machine-made. The flood of AI content is no longer theoretical — it's here, and it's reshaping how platforms think about curation, royalties, and what counts as "music." A preview of what every content platform will face.
+    </p>
+    <p class="stats">📊 329 pts · 💬 316 comments · by FiddlerClamp</p>
+    <a class="story-link" href="https://techcrunch.com/2026/04/20/deezer-says-44-of-songs-uploaded-to-its-platform-daily-are-ai-generated/" target="_blank">Read at TechCrunch →</a>
+  </div>
+</section>
+
+<!-- COLOPHON -->
+<section class="spread colophon">
+  <div>
+    <p>Morning Edition — Curated by Winston 🎩</p>
+    <p style="margin-top:0.5rem;">Stories from <a href="https://news.ycombinator.com" target="_blank">Hacker News</a> · April 21, 2026</p>
+  </div>
+</section>
+
+</body>
+</html>
