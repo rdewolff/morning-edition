@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Edition — April 22, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.spread {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .spread { padding: 4rem 6rem; } }
+@media (min-width: 1200px) { .spread { padding: 5rem 10rem; } }
+h1, h2, .display { font-family: 'Fraunces', serif; }
+.meta { font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 1.5rem; opacity: 0.7; }
+.meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.badge {
+  display: inline-block;
+  background: #e53e3e;
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+}
+.story-num {
+  font-family: 'Fraunces', serif;
+  font-size: 8rem;
+  font-weight: 900;
+  opacity: 0.08;
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  line-height: 1;
+}
+.blurb { font-size: 1.15rem; line-height: 1.7; max-width: 42rem; margin-top: 1.2rem; }
+
+/* === COVER === */
+.cover {
+  background: #0a0a0a;
+  color: #fafaf9;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.cover h1 { font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+.cover .date { font-size: 1.3rem; margin-top: 1rem; opacity: 0.5; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; }
+.cover .subtitle { font-size: 1.1rem; margin-top: 2rem; max-width: 32rem; line-height: 1.6; opacity: 0.6; }
+
+/* 1 — Hero/Cream */
+.s1 { background: #fdf6ec; color: #1a1a1a; }
+.s1 h2 { font-size: clamp(2.4rem, 5.5vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.s1 .accent { color: #c05621; }
+
+/* 2 — Dark/Midnight */
+.s2 { background: #0f172a; color: #e2e8f0; }
+.s2 h2 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.15; color: #93c5fd; }
+.s2 .blurb { color: #94a3b8; }
+
+/* 3 — Rose Alert Stamp */
+.s3 { background: #fff1f2; color: #1a1a1a; }
+.s3 h2 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.12; color: #be123c; }
+.s3::after {
+  content: 'AI';
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'Fraunces', serif;
+  font-size: 12rem;
+  font-weight: 900;
+  color: #fda4af;
+  opacity: 0.15;
+  line-height: 1;
+  transform: rotate(-12deg);
+}
+
+/* 4 — Terminal Green */
+.s4 { background: #0a0f0a; color: #4ade80; font-family: 'Courier New', monospace; }
+.s4 h2 { font-family: 'Courier New', monospace; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.2; }
+.s4 .blurb { color: #86efac; font-family: 'Courier New', monospace; }
+.s4 .meta { color: #4ade80; }
+.s4 .meta a { color: #4ade80; }
+.s4::before { content: '$ cat /dev/news'; display: block; font-size: 0.85rem; opacity: 0.4; margin-bottom: 1.5rem; }
+
+/* 5 — Academic Drop Cap */
+.s5 { background: #fefce8; color: #1c1917; border-left: 8px solid #ca8a04; }
+.s5 h2 { font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 700; line-height: 1.15; color: #854d0e; }
+.s5 .blurb::first-letter {
+  font-family: 'Fraunces', serif;
+  font-size: 4.5rem;
+  float: left;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  padding-top: 0.3rem;
+  color: #ca8a04;
+  font-weight: 900;
+}
+
+/* 6 — Indigo Gradient */
+.s6 { background: linear-gradient(135deg, #312e81 0%, #6366f1 50%, #818cf8 100%); color: #fff; }
+.s6 h2 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; }
+.s6 .blurb { color: #e0e7ff; }
+
+/* 7 — Bold Black & White */
+.s7 { background: #fff; color: #000; border-top: 12px solid #000; border-bottom: 12px solid #000; }
+.s7 h2 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.05; text-transform: uppercase; letter-spacing: -0.03em; }
+
+/* 8 — Warm Amber */
+.s8 { background: #451a03; color: #fef3c7; }
+.s8 h2 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.15; color: #fbbf24; }
+.s8 .blurb { color: #fde68a; }
+
+/* 9 — Teal Science */
+.s9 { background: #042f2e; color: #ccfbf1; }
+.s9 h2 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.12; color: #5eead4; }
+.s9 .blurb { color: #99f6e4; }
+.s9 .story-num { color: #5eead4; }
+
+/* 10 — Big Stat Finish */
+.s10 { background: #18181b; color: #fafafa; text-align: center; align-items: center; }
+.s10 .big-stat { font-family: 'Fraunces', serif; font-size: clamp(5rem, 12vw, 10rem); font-weight: 900; line-height: 1; color: #f97316; }
+.s10 h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 600; line-height: 1.2; margin-top: 1rem; max-width: 36rem; }
+.s10 .blurb { color: #a1a1aa; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="spread cover">
+  <h1>Morning<br>Edition</h1>
+  <div class="date">Wednesday, April 22, 2026</div>
+  <div class="subtitle">10 stories curated for Romain — AI shifts, dev tools drama, privacy concerns, and weird science.</div>
+</section>
+
+<!-- 1 — Hero/Cream: Framework Laptop 13 Pro -->
+<section class="spread s1">
+  <span class="story-num">01</span>
+  <h2>Framework Laptop 13 Pro — <span class="accent">Modular Hardware</span> Gets Serious</h2>
+  <p class="blurb">Framework drops the Laptop 13 Pro, their most polished modular machine yet. Swappable everything, user-repairable, and built for developers who hate planned obsolescence. At 1,060 points and 557 comments, HN is losing its collective mind.</p>
+  <p class="meta">⬆ 1,060 &nbsp;·&nbsp; 💬 557 &nbsp;·&nbsp; <a href="https://frame.work/laptop13pro" target="_blank">frame.work</a></p>
+</section>
+
+<!-- 2 — Dark/Midnight: Laws of Software Engineering -->
+<section class="spread s2">
+  <span class="story-num">02</span>
+  <h2>Laws of Software Engineering</h2>
+  <p class="blurb">A beautifully curated collection of the timeless laws, principles, and rules of thumb that govern software development — from Conway's Law to Goodhart's Law. The kind of page you bookmark and revisit every quarter. 889 points say HN agrees.</p>
+  <p class="meta">⬆ 889 &nbsp;·&nbsp; 💬 444 &nbsp;·&nbsp; <a href="https://lawsofsoftwareengineering.com" target="_blank">lawsofsoftwareengineering.com</a></p>
+</section>
+
+<!-- 3 — Rose Alert Stamp: ChatGPT Images 2.0 -->
+<section class="spread s3">
+  <span class="story-num">03</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h2>ChatGPT Images 2.0 — OpenAI's Next Visual Leap</h2>
+  <p class="blurb">OpenAI ships a major image generation upgrade with dramatically improved coherence, text rendering, and style control. For anyone building AI products — including AI for legal professionals — this shifts the baseline of what users expect from generative AI.</p>
+  <p class="meta">⬆ 613 &nbsp;·&nbsp; 💬 509 &nbsp;·&nbsp; <a href="https://openai.com/index/introducing-chatgpt-images-2-0/" target="_blank">openai.com</a></p>
+</section>
+
+<!-- 4 — Terminal Green: Claude Code Removed from Pro -->
+<section class="spread s4">
+  <span class="story-num" style="color: #4ade80;">04</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h2>Claude Code to Be Removed from Anthropic's Pro Plan?</h2>
+  <p class="blurb">Reports suggest Anthropic is pulling Claude Code from the Pro tier, potentially pushing power users to more expensive plans. If you're building with Claude's API or using Claude Code daily for Whisperit development, this pricing shift matters immediately.</p>
+  <p class="meta">⬆ 448 &nbsp;·&nbsp; 💬 429 &nbsp;·&nbsp; <a href="https://bsky.app/profile/edzitron.com/post/3mjzxwfx3qs2a" target="_blank">bsky.app</a></p>
+</section>
+
+<!-- 5 — Academic Drop Cap: SpaceX acquires Cursor -->
+<section class="spread s5">
+  <span class="story-num">05</span>
+  <h2>SpaceX Says It Has Agreement to Acquire Cursor for $60B</h2>
+  <p class="blurb">In the most unexpected M&A headline of the year, SpaceX announces an agreement to acquire AI coding tool Cursor for a staggering $60 billion. The deal signals just how critical AI-powered development tools have become — even for companies building rockets. 536 comments and climbing as HN tries to figure out what Elon is playing at.</p>
+  <p class="meta">⬆ 427 &nbsp;·&nbsp; 💬 536 &nbsp;·&nbsp; <a href="https://twitter.com/spacex/status/2046713419978453374" target="_blank">twitter.com</a></p>
+</section>
+
+<!-- 6 — Indigo Gradient: Meta Keystrokes -->
+<section class="spread s6">
+  <span class="story-num">06</span>
+  <h2>Meta to Capture Employee Mouse Movements &amp; Keystrokes for AI Training</h2>
+  <p class="blurb">Reuters reports that Meta will begin logging employee mouse movements and keystrokes to train AI models. The privacy implications are enormous — and for anyone in legal tech, this raises immediate questions about workplace surveillance boundaries and data consent.</p>
+  <p class="meta">⬆ 419 &nbsp;·&nbsp; 💬 329 &nbsp;·&nbsp; <a href="https://www.reuters.com/sustainability/boards-policy-regulation/meta-start-capturing-employee-mouse-movements-keystrokes-ai-training-data-2026-04-21/" target="_blank">reuters.com</a></p>
+</section>
+
+<!-- 7 — Bold Black & White: GitHub Copilot Changes -->
+<section class="spread s7">
+  <span class="story-num">07</span>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h2>Changes to GitHub Copilot Individual Plans</h2>
+  <p class="blurb">GitHub restructures Copilot's individual pricing tiers. Combined with Claude Code potentially leaving Pro and Cursor's $60B exit, the AI coding assistant landscape is reshuffling fast. Worth reviewing if it affects your dev workflow at Whisperit.</p>
+  <p class="meta">⬆ 374 &nbsp;·&nbsp; 💬 136 &nbsp;·&nbsp; <a href="https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/" target="_blank">github.blog</a></p>
+</section>
+
+<!-- 8 — Warm Amber: Vercel Breach -->
+<section class="spread s8">
+  <span class="story-num">08</span>
+  <h2>The Vercel Breach: OAuth Attack Exposes Platform Environment Variables</h2>
+  <p class="blurb">A sophisticated OAuth supply chain attack on Vercel exposed environment variables across the platform. Trend Micro's deep dive reveals how OAuth token flows were exploited. If you deploy anything on Vercel — or use similar OAuth patterns — check your env vars now.</p>
+  <p class="meta">⬆ 292 &nbsp;·&nbsp; 💬 105 &nbsp;·&nbsp; <a href="https://www.trendmicro.com/en_us/research/26/d/vercel-breach-oauth-supply-chain.html" target="_blank">trendmicro.com</a></p>
+</section>
+
+<!-- 9 — Teal Science: VidStudio -->
+<section class="spread s9">
+  <span class="story-num">09</span>
+  <h2>VidStudio — A Browser-Based Video Editor That Doesn't Upload Your Files</h2>
+  <p class="blurb">Show HN at its best: a fully capable video editor that runs entirely in-browser with zero file uploads. Privacy-first creative tools are having a moment, and this one nails the UX. Great for quick edits without trusting a third-party server.</p>
+  <p class="meta">⬆ 260 &nbsp;·&nbsp; 💬 83 &nbsp;·&nbsp; <a href="https://vidstudio.app/video-editor" target="_blank">vidstudio.app</a></p>
+</section>
+
+<!-- 10 — Big Stat Finish: CrabTrap -->
+<section class="spread s10">
+  <div class="big-stat">LLM 🦀</div>
+  <div class="badge">🔥 Directly applies to you</div>
+  <h2>CrabTrap: An LLM-as-a-Judge HTTP Proxy to Secure AI Agents in Production</h2>
+  <p class="blurb">Brex open-sources CrabTrap — an HTTP proxy that uses LLM-as-a-judge to catch unsafe AI agent behavior before it hits your APIs. If Whisperit runs any autonomous AI workflows, this is exactly the kind of guardrail worth evaluating.</p>
+  <p class="meta">⬆ 99 &nbsp;·&nbsp; 💬 32 &nbsp;·&nbsp; <a href="https://www.brex.com/crabtrap" target="_blank">brex.com</a></p>
+</section>
+
+<!-- FOOTER -->
+<section class="spread cover" style="min-height: 40vh;">
+  <p style="font-size: 1.1rem; opacity: 0.4; letter-spacing: 0.1em; text-transform: uppercase;">End of Morning Edition</p>
+  <p style="font-size: 0.9rem; opacity: 0.3; margin-top: 0.8rem;">Curated by Winston 🎩 for Romain</p>
+</section>
+
+</body>
+</html>
